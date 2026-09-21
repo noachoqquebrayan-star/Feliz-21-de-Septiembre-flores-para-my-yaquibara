@@ -64,7 +64,7 @@
       50% { transform: scale(1.05); }
     }
 
-    /* RAMOS LATERALES CON GIRASOLES REALISTAS */
+    /* RAMOS LATERALES IDÉNTICOS AL DISEÑO */
     .side-bouquet {
       position: absolute;
       bottom: -10px;
@@ -100,13 +100,13 @@
 
     #letter-box {
       max-width: 480px;
-      max-height: 65vh;
+      max-height: 60vh;
       overflow-y: auto;
       pointer-events: auto;
       opacity: 0;
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
       transform: translateY(-10px);
-      background: rgba(12, 8, 12, 0.75);
+      background: rgba(12, 8, 12, 0.78);
       backdrop-filter: blur(8px);
       padding: 22px 25px;
       border-radius: 20px;
@@ -116,7 +116,6 @@
       margin-top: 10px;
     }
 
-    /* Scrollbar personalizada */
     #letter-box::-webkit-scrollbar { width: 6px; }
     #letter-box::-webkit-scrollbar-thumb { background: #ffd700; border-radius: 10px; }
 
@@ -126,7 +125,7 @@
     }
 
     .letter-body {
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       color: #fff;
       line-height: 1.6;
       white-space: pre-line;
@@ -139,7 +138,7 @@
       max-width: 580px;
       text-align: center;
       opacity: 0;
-      transition: opacity 0.8s ease;
+      transition: opacity 0.6s ease;
       background: rgba(12, 8, 12, 0.85);
       backdrop-filter: blur(8px);
       padding: 12px 20px;
@@ -172,7 +171,7 @@
 
     @media (max-width: 768px) {
       #content-overlay { padding: 15px 10px; }
-      #letter-box { max-width: 100%; margin-left: 0; max-height: 55vh; padding: 16px; }
+      #letter-box { max-width: 100%; margin-left: 0; max-height: 52vh; padding: 16px; }
       .letter-body { font-size: 0.98rem; }
       .side-bouquet { width: 170px; height: 300px; }
     }
@@ -371,7 +370,7 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // DIBUJO REALISTA DE GIRASOL
+    // DIBUJO REALISTA DE GIRASOL DETALLADO
     function drawSunflower(ctx, x, y, size, angle = 0) {
       if (size <= 0) return;
       ctx.save();
@@ -470,11 +469,10 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
     let state = 'IDLE'; 
     let treeOffset = 0;
     let targetOffset = 0;
-    let treeProgress = 0;
-    let bloomProgress = 0;
     let flowersList = [];
     let windPetals = [];
 
+    // RESTAURADAS LAS 650 FLORES DEL CORAZÓN COMPLETO
     function generateHeartFlowers() {
       const list = [];
       const count = 650;
@@ -490,9 +488,7 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
           relX: hx + (Math.random() - 0.5) * 8,
           relY: hy + (Math.random() - 0.5) * 8,
           size: 10 + Math.random() * 7,
-          currentSize: 0,
-          rotation: Math.random() * Math.PI * 2,
-          delay: Math.random() * 0.1
+          rotation: Math.random() * Math.PI * 2
         });
       }
       return list;
@@ -504,13 +500,16 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
       setTimeout(() => {
         startScreen.style.display = 'none';
         startSequence();
-      }, 200);
+      }, 150);
     });
 
     function startSequence() {
-      state = 'INSTANT_TREE';
+      state = 'FINAL';
       flowersList = generateHeartFlowers();
       targetOffset = canvas.width > 768 ? canvas.width * 0.24 : 0;
+      treeOffset = targetOffset;
+      letterBox.classList.add('visible');
+      counterBox.classList.add('visible');
     }
 
     function animate() {
@@ -540,90 +539,64 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
       const centerX = canvas.width / 2;
       const groundY = canvas.height - 70;
 
-      // ANIMACIÓN INSTANTÁNEA (MÁXIMA VELOCIDAD)
-      if (state === 'INSTANT_TREE' || state === 'FINAL') {
-        if (treeProgress < 1) treeProgress += 0.18; // Crecimiento ultraveloz
-        if (treeProgress >= 1) {
-          treeProgress = 1;
-          if (bloomProgress < 1) bloomProgress += 0.2; // Florecimiento instantáneo
-          if (bloomProgress >= 1) {
-            bloomProgress = 1;
-            treeOffset += (targetOffset - treeOffset) * 0.2;
-            if (Math.abs(targetOffset - treeOffset) < 1) {
-              treeOffset = targetOffset;
-              state = 'FINAL';
-              letterBox.classList.add('visible');
-              counterBox.classList.add('visible');
-            }
-          }
-        }
-
-        if (state === 'FINAL') {
-          if (Math.random() < 0.25) {
-            windPetals.push({
-              x: (centerX + treeOffset) + (Math.random() - 0.5) * 140,
-              y: (groundY - 300) + (Math.random() - 0.5) * 140,
-              vx: -(1.5 + Math.random() * 1.5),
-              vy: (Math.random() - 0.5) * 0.8,
-              size: 5 + Math.random() * 4,
-              rotation: Math.random() * Math.PI * 2,
-              vRot: (Math.random() - 0.5) * 0.05
-            });
-          }
-        }
-
-        // DIBUJAR ÁRBOL
-        ctx.save();
-        ctx.translate(centerX + treeOffset, groundY);
-
-        const h = 230 * treeProgress;
-
-        ctx.fillStyle = '#4a2810';
-        ctx.beginPath();
-        ctx.moveTo(-32 * treeProgress, 0);
-        ctx.quadraticCurveTo(-15 * treeProgress, -15 * treeProgress, -12 * treeProgress, -40 * treeProgress);
-        ctx.lineTo(12 * treeProgress, -40 * treeProgress);
-        ctx.quadraticCurveTo(15 * treeProgress, -15 * treeProgress, 32 * treeProgress, 0);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.moveTo(-14 * treeProgress, -35 * treeProgress);
-        ctx.quadraticCurveTo(-18 * treeProgress, -h * 0.5, -6 * treeProgress, -h);
-        ctx.lineTo(6 * treeProgress, -h);
-        ctx.quadraticCurveTo(10 * treeProgress, -h * 0.5, 14 * treeProgress, -35 * treeProgress);
-        ctx.closePath();
-        ctx.fill();
-
-        if (treeProgress > 0.2) {
-          const bp = (treeProgress - 0.2) / 0.8;
-          ctx.strokeStyle = '#4a2810';
-          ctx.lineCap = 'round';
-
-          ctx.lineWidth = 10 * bp;
-          ctx.beginPath();
-          ctx.moveTo(0, -h * 0.6);
-          ctx.quadraticCurveTo(-45 * bp, -h * 0.85, -85 * bp, -h * 1.05);
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.moveTo(0, -h * 0.65);
-          ctx.quadraticCurveTo(45 * bp, -h * 0.88, 88 * bp, -h * 1.08);
-          ctx.stroke();
-        }
-
-        // COPA DE CORAZÓN CON FLORES REALISTAS
-        if (bloomProgress > 0) {
-          flowersList.forEach(f => {
-            const localProg = Math.min(bloomProgress / 0.2, 1);
-            f.currentSize = f.size * localProg;
-            drawSunflower(ctx, f.relX, f.relY - 280, f.currentSize, f.rotation);
+      if (state === 'FINAL') {
+        if (Math.random() < 0.25) {
+          windPetals.push({
+            x: (centerX + treeOffset) + (Math.random() - 0.5) * 140,
+            y: (groundY - 300) + (Math.random() - 0.5) * 140,
+            vx: -(1.5 + Math.random() * 1.5),
+            vy: (Math.random() - 0.5) * 0.8,
+            size: 5 + Math.random() * 4,
+            rotation: Math.random() * Math.PI * 2,
+            vRot: (Math.random() - 0.5) * 0.05
           });
         }
 
+        // DIBUJAR ÁRBOL COMPLETO INSTANTÁNEAMENTE
+        ctx.save();
+        ctx.translate(centerX + treeOffset, groundY);
+
+        const h = 230;
+
+        ctx.fillStyle = '#4a2810';
+        ctx.beginPath();
+        ctx.moveTo(-32, 0);
+        ctx.quadraticCurveTo(-15, -15, -12, -40);
+        ctx.lineTo(12, -40);
+        ctx.quadraticCurveTo(15, -15, 32, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(-14, -35);
+        ctx.quadraticCurveTo(-18, -h * 0.5, -6, -h);
+        ctx.lineTo(6, -h);
+        ctx.quadraticCurveTo(10, -h * 0.5, 14, -35);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = '#4a2810';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 10;
+
+        ctx.beginPath();
+        ctx.moveTo(0, -h * 0.6);
+        ctx.quadraticCurveTo(-45, -h * 0.85, -85, -h * 1.05);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0, -h * 0.65);
+        ctx.quadraticCurveTo(45, -h * 0.88, 88, -h * 1.08);
+        ctx.stroke();
+
+        // COPA DE CORAZÓN CON LAS 650 FLORES REALISTAS
+        flowersList.forEach(f => {
+          drawSunflower(ctx, f.relX, f.relY - 280, f.size, f.rotation);
+        });
+
         ctx.restore();
 
-        // PÉTALOS VOLANDO
+        // PÉTALOS FLOTANTES
         for (let i = windPetals.length - 1; i >= 0; i--) {
           const p = windPetals[i];
           p.x += p.vx;
