@@ -9,7 +9,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background-color: #060406;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Segoe UI', Roboto, sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -22,7 +22,7 @@
       width: 100vw;
       height: 100vh;
       position: relative;
-      background: radial-gradient(circle at center, #1c120a 0%, #060406 100%);
+      background: radial-gradient(circle at center, #1b120a 0%, #060406 100%);
     }
 
     /* PANTALLA INICIAL */
@@ -35,7 +35,7 @@
       justify-content: center;
       cursor: pointer;
       z-index: 10;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.5s ease;
       background: rgba(6, 4, 6, 0.88);
     }
 
@@ -56,7 +56,7 @@
       padding-bottom: 8px;
       margin-top: 20px;
       text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
-      animation: pulseText 1.5s infinite ease-in-out;
+      animation: pulseText 1.8s infinite ease-in-out;
     }
 
     @keyframes pulseText {
@@ -64,12 +64,12 @@
       50% { transform: scale(1.05); }
     }
 
-    /* RAMOS LATERALES IDÉNTICOS AL DISEÑO */
+    /* RAMOS LATERALES CON GIRASOLES DETALLADOS */
     .side-bouquet {
       position: absolute;
       bottom: -10px;
-      width: 280px;
-      height: 450px;
+      width: 290px;
+      height: 460px;
       pointer-events: none;
       z-index: 2;
     }
@@ -92,66 +92,73 @@
       top: 0; left: 0; width: 100%; height: 100%;
       z-index: 5;
       pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 30px 20px;
     }
 
     #letter-box {
-      max-width: 480px;
-      max-height: 60vh;
+      position: absolute;
+      top: 5%;
+      left: 4%;
+      max-width: 44%;
+      max-height: 75vh;
       overflow-y: auto;
-      pointer-events: auto;
       opacity: 0;
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      transform: translateY(-10px);
-      background: rgba(12, 8, 12, 0.78);
-      backdrop-filter: blur(8px);
-      padding: 22px 25px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 215, 0, 0.4);
-      box-shadow: 0 0 30px rgba(0,0,0,0.8);
-      margin-left: 20px;
-      margin-top: 10px;
+      transition: opacity 1.2s ease, transform 1.2s ease;
+      transform: translateY(20px);
+      background: rgba(10, 7, 10, 0.65);
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      backdrop-filter: blur(4px);
     }
-
-    #letter-box::-webkit-scrollbar { width: 6px; }
-    #letter-box::-webkit-scrollbar-thumb { background: #ffd700; border-radius: 10px; }
 
     #letter-box.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
+    .letter-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffe600;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
+    }
+
     .letter-body {
-      font-size: 1.08rem;
-      color: #fff;
-      line-height: 1.6;
-      white-space: pre-line;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+      font-size: 0.95rem;
+      color: #f8f8f8;
+      line-height: 1.45;
+      margin-bottom: 12px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+    }
+
+    .letter-sign {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffd700;
     }
 
     #counter-box {
-      align-self: center;
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 90%;
-      max-width: 580px;
+      max-width: 600px;
       text-align: center;
       opacity: 0;
-      transition: opacity 0.6s ease;
-      background: rgba(12, 8, 12, 0.85);
-      backdrop-filter: blur(8px);
-      padding: 12px 20px;
+      transition: opacity 1.2s ease;
+      background: rgba(12, 9, 12, 0.88);
+      padding: 10px 18px;
       border-radius: 20px;
       border: 1px solid rgba(255, 215, 0, 0.35);
       box-shadow: 0 0 25px rgba(0,0,0,0.9);
-      pointer-events: auto;
     }
 
     #counter-box.visible { opacity: 1; }
 
-    .counter-title { font-size: 0.95rem; color: #ddd; margin-bottom: 4px; }
-    .counter-time { font-size: 1.15rem; font-weight: 700; color: #ffe600; }
+    .counter-title { font-size: 0.9rem; color: #ddd; margin-bottom: 3px; }
+    .counter-time { font-size: 1.05rem; font-weight: 700; color: #ffe600; }
 
     /* BOTÓN MÚSICA */
     #music-btn {
@@ -159,7 +166,7 @@
       top: 20px;
       right: 20px;
       z-index: 20;
-      background: rgba(255, 215, 0, 0.25);
+      background: rgba(255, 215, 0, 0.2);
       border: 1px solid #ffd700;
       color: #ffd700;
       padding: 8px 16px;
@@ -170,10 +177,16 @@
     }
 
     @media (max-width: 768px) {
-      #content-overlay { padding: 15px 10px; }
-      #letter-box { max-width: 100%; margin-left: 0; max-height: 52vh; padding: 16px; }
-      .letter-body { font-size: 0.98rem; }
-      .side-bouquet { width: 170px; height: 300px; }
+      #letter-box { 
+        max-width: 90%; 
+        left: 5%; 
+        top: 4%; 
+        max-height: 60vh;
+        padding: 14px;
+      }
+      .letter-title { font-size: 1.1rem; }
+      .letter-body { font-size: 0.85rem; }
+      .side-bouquet { width: 180px; height: 320px; }
     }
   </style>
 </head>
@@ -182,7 +195,7 @@
   <div class="container">
     <button id="music-btn">🎵 Música: On</button>
 
-    <!-- PANTALLA INICIAL -->
+    <!-- PANTALLA INICIAL CON GIRASOLES DETALLADOS -->
     <div id="start-screen">
       <!-- Ramo Izquierdo -->
       <svg class="side-bouquet left" viewBox="0 0 200 320">
@@ -203,6 +216,7 @@
         <path d="M75 230 Q30 200 45 160 Q80 190 75 230 Z" fill="#2d591b"/>
         <path d="M115 220 Q155 190 145 150 Q110 180 115 220 Z" fill="#214213"/>
 
+        <!-- Flores Detalladas -->
         <g transform="translate(30,110) scale(0.65)">
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(0)"/>
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(22.5)"/>
@@ -212,7 +226,7 @@
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(112.5)"/>
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(135)"/>
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(157.5)"/>
-          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(180)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="rotate(180)"/>
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(202.5)"/>
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(225)"/>
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(247.5)"/>
@@ -242,6 +256,26 @@
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(337.5)"/>
           <circle r="17" fill="url(#centerGrad)"/>
         </g>
+
+        <g transform="translate(150,90) scale(0.75)">
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(0)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(22.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(45)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(67.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(90)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(112.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(135)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(157.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(180)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(202.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(225)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(247.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(270)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(292.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(315)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(337.5)"/>
+          <circle r="17" fill="url(#centerGrad)"/>
+        </g>
       </svg>
 
       <!-- Ramo Derecho -->
@@ -251,6 +285,26 @@
         <path d="M115 220 Q155 190 145 150 Q110 180 115 220 Z" fill="#214213"/>
 
         <g transform="translate(30,110) scale(0.65)">
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(0)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(22.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(45)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(67.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(90)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(112.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(135)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(157.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(180)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(202.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(225)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(247.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(270)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(292.5)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(315)"/>
+          <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(337.5)"/>
+          <circle r="17" fill="url(#centerGrad)"/>
+        </g>
+
+        <g transform="translate(85,70) scale(0.85)">
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(0)"/>
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(22.5)"/>
           <path d="M0 -42 Q8 -20 0 0 Q-8 -20 0 -42 Z" fill="url(#petalGrad)" transform="rotate(45)"/>
@@ -304,15 +358,13 @@
     <!-- Overlay Texto/Contador -->
     <div id="content-overlay">
       <div id="letter-box">
-        <div class="letter-body">Jeje, unas flores amarillas para mi preciosa, que siempre hace brillar mis días. 💛
-
-Cada día a tu lado es único y hermoso. Gracias por hacerme tan feliz 😊💕, eres una persona increíble y estoy muy agradecido por tenerte en mi vida.
-
-Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muchas cosas, pero siempre logramos salir adelante; aprendemos de nuestros errores y, sobre todo, aprendemos más el uno del otro. 💖 Me alegra un montón ver cómo seguimos avanzando juntos.
-
-¡Feliz 21 de septiembre y felices 1 año y 4 meses a tu lado! 💗
-
-— I Love You, Mi niña hermosa! 🌻</div>
+        <div class="letter-title">Jeje, unas flores amarillas para mi preciosa, que siempre hace brillar mis días. 💛</div>
+        <div class="letter-body">
+          Cada día a tu lado es único y hermoso. Gracias por hacerme tan feliz 😊💕, eres una persona increíble y estoy muy agradecido por tenerte en mi vida.<br><br>
+          Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muchas cosas, pero siempre logramos salir adelante; aprendemos de nuestros errores y, sobre todo, aprendemos más el uno del otro. 💖 Me alegra un montón ver cómo seguimos avanzando juntos.<br><br>
+          ¡Feliz 21 de septiembre y felices 1 año y 4 meses a tu lado! 💗
+        </div>
+        <div class="letter-sign">— I Love You, Mi niña hermosa! 🌻</div>
       </div>
 
       <div id="counter-box">
@@ -322,8 +374,7 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
     </div>
   </div>
 
-  <!-- Audio Floricienta - Flores Amarillas -->
-  <audio id="bg-music" loop src="https://ia801503.us.archive.org/15/items/flores-amarillas-floricienta/Flores%20Amarillas.mp3"></audio>
+  <audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112189.mp3"></audio>
 
   <script>
     const startScreen = document.getElementById('start-screen');
@@ -370,7 +421,7 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // DIBUJO REALISTA DE GIRASOL DETALLADO
+    // DIBUJO REALISTA DE GIRASOL CON PÉTALOS EN DEGRADADO Y CENTRO TEXTURIZADO
     function drawSunflower(ctx, x, y, size, angle = 0) {
       if (size <= 0) return;
       ctx.save();
@@ -378,6 +429,7 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
       ctx.rotate(angle);
 
       const numPetals = 16;
+      // Capa Trasera de Pétalos
       for (let i = 0; i < numPetals; i++) {
         ctx.save();
         ctx.rotate((i * Math.PI * 2) / numPetals + 0.2);
@@ -395,6 +447,7 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
         ctx.restore();
       }
 
+      // Capa Frontal de Pétalos
       for (let i = 0; i < numPetals; i++) {
         ctx.save();
         ctx.rotate((i * Math.PI * 2) / numPetals);
@@ -412,6 +465,7 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
         ctx.restore();
       }
 
+      // Centro Oscuro Realista
       const centerGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, size * 0.38);
       centerGrad.addColorStop(0, '#1a0d05');
       centerGrad.addColorStop(0.65, '#3b1d0e');
@@ -422,12 +476,22 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
       ctx.fillStyle = centerGrad;
       ctx.fill();
 
+      // Semillas del Centro
+      ctx.fillStyle = 'rgba(0,0,0,0.35)';
+      for (let j = 0; j < 12; j++) {
+        const rad = (j / 12) * size * 0.3;
+        const ang = j * 2.4;
+        ctx.beginPath();
+        ctx.arc(Math.cos(ang) * rad, Math.sin(ang) * rad, 1.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       ctx.restore();
     }
 
     // SISTEMA DE BRILLOS FLOTANTES
     const sparkles = [];
-    for(let i = 0; i < 130; i++) {
+    for(let i = 0; i < 140; i++) {
       sparkles.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
@@ -469,10 +533,13 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
     let state = 'IDLE'; 
     let treeOffset = 0;
     let targetOffset = 0;
+    let startFlower = { scale: 1, y: 0 };
+    let seed = { x: 0, y: 0, rotation: 0 };
+    let treeProgress = 0;
+    let bloomProgress = 0;
     let flowersList = [];
     let windPetals = [];
 
-    // RESTAURADAS LAS 650 FLORES DEL CORAZÓN COMPLETO
     function generateHeartFlowers() {
       const list = [];
       const count = 650;
@@ -488,7 +555,9 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
           relX: hx + (Math.random() - 0.5) * 8,
           relY: hy + (Math.random() - 0.5) * 8,
           size: 10 + Math.random() * 7,
-          rotation: Math.random() * Math.PI * 2
+          currentSize: 0,
+          rotation: Math.random() * Math.PI * 2,
+          delay: Math.random() * 0.25
         });
       }
       return list;
@@ -500,22 +569,21 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
       setTimeout(() => {
         startScreen.style.display = 'none';
         startSequence();
-      }, 150);
+      }, 400);
     });
 
     function startSequence() {
-      state = 'FINAL';
-      flowersList = generateHeartFlowers();
-      targetOffset = canvas.width > 768 ? canvas.width * 0.24 : 0;
-      treeOffset = targetOffset;
-      letterBox.classList.add('visible');
-      counterBox.classList.add('visible');
+      state = 'FLOWER_TO_SEED';
+      startFlower.scale = 1;
+      startFlower.y = canvas.height / 2 - 20;
     }
 
     function animate() {
+      // Fondo Oscuro Elegante
       ctx.fillStyle = '#060406';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Brillos en movimiento
       sparkles.forEach(s => {
         s.y += s.speedY;
         s.alpha += s.pulseSpeed;
@@ -539,64 +607,136 @@ Te amo muchísimo y sabes que siempre estoy para ti ❤️. Hemos pasado por muc
       const centerX = canvas.width / 2;
       const groundY = canvas.height - 70;
 
-      if (state === 'FINAL') {
-        if (Math.random() < 0.25) {
-          windPetals.push({
-            x: (centerX + treeOffset) + (Math.random() - 0.5) * 140,
-            y: (groundY - 300) + (Math.random() - 0.5) * 140,
-            vx: -(1.5 + Math.random() * 1.5),
-            vy: (Math.random() - 0.5) * 0.8,
-            size: 5 + Math.random() * 4,
-            rotation: Math.random() * Math.PI * 2,
-            vRot: (Math.random() - 0.5) * 0.05
-          });
+      // 1. TRANSICIÓN ULTRA RÁPIDA A SEMILLA
+      if (state === 'FLOWER_TO_SEED') {
+        startFlower.scale -= 0.08;
+        if (startFlower.scale > 0.1) {
+          drawSunflower(ctx, centerX, startFlower.y, 55 * startFlower.scale);
+        } else {
+          state = 'SEED_FALLING';
+          seed.x = centerX;
+          seed.y = startFlower.y;
+        }
+      }
+
+      // 2. CAÍDA RÁPIDA DE LA SEMILLA
+      else if (state === 'SEED_FALLING') {
+        seed.y += 6.0;
+        seed.x = centerX + Math.sin(seed.y * 0.04) * 4;
+        seed.rotation += 0.08;
+
+        ctx.save();
+        ctx.translate(seed.x, seed.y);
+        ctx.rotate(seed.rotation);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 7, 4, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffe600';
+        ctx.fill();
+        ctx.restore();
+
+        if (seed.y >= groundY - 5) {
+          state = 'TREE_GROWING';
+          flowersList = generateHeartFlowers();
+        }
+      }
+
+      // 3. CRECIMIENTO ULTRA RÁPIDO DEL ÁRBOL
+      else if (state === 'TREE_GROWING' || state === 'BLOOMING' || state === 'SHIFTING' || state === 'FINAL') {
+        if (state === 'TREE_GROWING') {
+          treeProgress += 0.07;
+          if (treeProgress >= 1) {
+            treeProgress = 1;
+            state = 'BLOOMING';
+          }
         }
 
-        // DIBUJAR ÁRBOL COMPLETO INSTANTÁNEAMENTE
+        if (state === 'BLOOMING') {
+          bloomProgress += 0.05;
+          if (bloomProgress >= 1) {
+            bloomProgress = 1;
+            state = 'SHIFTING';
+            targetOffset = canvas.width > 768 ? canvas.width * 0.28 : 0;
+          }
+        }
+
+        if (state === 'SHIFTING') {
+          treeOffset += (targetOffset - treeOffset) * 0.08;
+          if (Math.abs(targetOffset - treeOffset) < 1) {
+            treeOffset = targetOffset;
+            state = 'FINAL';
+            letterBox.classList.add('visible');
+            counterBox.classList.add('visible');
+          }
+        }
+
+        if (state === 'FINAL') {
+          if (Math.random() < 0.25) {
+            windPetals.push({
+              x: (centerX + treeOffset) + (Math.random() - 0.5) * 140,
+              y: (groundY - 300) + (Math.random() - 0.5) * 140,
+              vx: -(1.5 + Math.random() * 1.5),
+              vy: (Math.random() - 0.5) * 0.8,
+              size: 5 + Math.random() * 4,
+              rotation: Math.random() * Math.PI * 2,
+              vRot: (Math.random() - 0.5) * 0.05
+            });
+          }
+        }
+
+        // DIBUJAR ÁRBOL
         ctx.save();
         ctx.translate(centerX + treeOffset, groundY);
 
-        const h = 230;
+        const h = 230 * treeProgress;
 
         ctx.fillStyle = '#4a2810';
         ctx.beginPath();
-        ctx.moveTo(-32, 0);
-        ctx.quadraticCurveTo(-15, -15, -12, -40);
-        ctx.lineTo(12, -40);
-        ctx.quadraticCurveTo(15, -15, 32, 0);
+        ctx.moveTo(-32 * treeProgress, 0);
+        ctx.quadraticCurveTo(-15 * treeProgress, -15 * treeProgress, -12 * treeProgress, -40 * treeProgress);
+        ctx.lineTo(12 * treeProgress, -40 * treeProgress);
+        ctx.quadraticCurveTo(15 * treeProgress, -15 * treeProgress, 32 * treeProgress, 0);
         ctx.closePath();
         ctx.fill();
 
         ctx.beginPath();
-        ctx.moveTo(-14, -35);
-        ctx.quadraticCurveTo(-18, -h * 0.5, -6, -h);
-        ctx.lineTo(6, -h);
-        ctx.quadraticCurveTo(10, -h * 0.5, 14, -35);
+        ctx.moveTo(-14 * treeProgress, -35 * treeProgress);
+        ctx.quadraticCurveTo(-18 * treeProgress, -h * 0.5, -6 * treeProgress, -h);
+        ctx.lineTo(6 * treeProgress, -h);
+        ctx.quadraticCurveTo(10 * treeProgress, -h * 0.5, 14 * treeProgress, -35 * treeProgress);
         ctx.closePath();
         ctx.fill();
 
-        ctx.strokeStyle = '#4a2810';
-        ctx.lineCap = 'round';
-        ctx.lineWidth = 10;
+        if (treeProgress > 0.2) {
+          const bp = (treeProgress - 0.2) / 0.8;
+          ctx.strokeStyle = '#4a2810';
+          ctx.lineCap = 'round';
 
-        ctx.beginPath();
-        ctx.moveTo(0, -h * 0.6);
-        ctx.quadraticCurveTo(-45, -h * 0.85, -85, -h * 1.05);
-        ctx.stroke();
+          ctx.lineWidth = 10 * bp;
+          ctx.beginPath();
+          ctx.moveTo(0, -h * 0.6);
+          ctx.quadraticCurveTo(-45 * bp, -h * 0.85, -85 * bp, -h * 1.05);
+          ctx.stroke();
 
-        ctx.beginPath();
-        ctx.moveTo(0, -h * 0.65);
-        ctx.quadraticCurveTo(45, -h * 0.88, 88, -h * 1.08);
-        ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(0, -h * 0.65);
+          ctx.quadraticCurveTo(45 * bp, -h * 0.88, 88 * bp, -h * 1.08);
+          ctx.stroke();
+        }
 
-        // COPA DE CORAZÓN CON LAS 650 FLORES REALISTAS
-        flowersList.forEach(f => {
-          drawSunflower(ctx, f.relX, f.relY - 280, f.size, f.rotation);
-        });
+        // DIBUJAR COPA EN FORMA DE CORAZÓN
+        if (bloomProgress > 0) {
+          flowersList.forEach(f => {
+            if (bloomProgress > f.delay) {
+              const localProg = Math.min((bloomProgress - f.delay) / 0.1, 1);
+              f.currentSize = f.size * localProg;
+              drawSunflower(ctx, f.relX, f.relY - 280, f.currentSize, f.rotation);
+            }
+          });
+        }
 
         ctx.restore();
 
-        // PÉTALOS FLOTANTES
+        // PÉTALOS FLOTANTES EN EL VIENTO
         for (let i = windPetals.length - 1; i >= 0; i--) {
           const p = windPetals[i];
           p.x += p.vx;
