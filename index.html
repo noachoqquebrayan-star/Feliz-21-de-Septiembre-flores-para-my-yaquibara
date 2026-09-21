@@ -4,29 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flores Amarillas para Jaqueline 🌻❤️</title>
-  
-  <meta property="og:title" content="Flores Amarillas para el amor de mi vida 🌻❤️" />
-  <meta property="og:description" content="Jaqueline, abre este enlace para ver tu regalo especial ✨" />
-  <meta property="og:type" content="website" />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background-color: #0f0a07;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #080608;
+      font-family: 'Segoe UI', Roboto, sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      color: #f5e6d3;
+      color: #fff;
     }
 
     .container {
       width: 100vw;
       height: 100vh;
       position: relative;
-      background: radial-gradient(circle at center, #1f120a 0%, #0a0604 100%);
+      background: radial-gradient(circle at center, #1c150d 0%, #080608 100%);
     }
 
     /* PANTALLA INICIAL */
@@ -37,24 +33,17 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 25px;
       cursor: pointer;
       z-index: 10;
-      transition: opacity 0.6s ease;
-      background: radial-gradient(circle at center, #24140b 0%, #0a0604 100%);
+      transition: opacity 0.8s ease;
+      background: rgba(8, 6, 8, 0.85);
     }
 
     .start-center {
       display: flex;
       flex-direction: column;
       align-items: center;
-      z-index: 2;
-    }
-
-    .flower-start {
-      width: 110px;
-      height: 110px;
-      animation: pulse 2s infinite ease-in-out;
+      z-index: 3;
     }
 
     .start-btn {
@@ -64,49 +53,40 @@
       text-align: center;
       max-width: 85%;
       line-height: 1.4;
-      border-bottom: 2px dashed #ffb700;
       padding-bottom: 8px;
       margin-top: 15px;
-      text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+      animation: pulseText 2s infinite ease-in-out;
     }
 
-    /* RAMOS DE FLORES A LOS COSTADOS EN LA PANTALLA INICIAL */
+    @keyframes pulseText {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    /* RAMOS LATERALES CON ESTILO DE LA IMAGEN */
     .side-bouquet {
       position: absolute;
-      bottom: 5%;
-      width: 220px;
-      height: 350px;
+      bottom: -10px;
+      width: 280px;
+      height: 450px;
       pointer-events: none;
-      z-index: 1;
-      opacity: 0.9;
+      z-index: 2;
     }
 
-    .side-bouquet.left {
-      left: 2%;
-      transform: rotate(8deg);
-    }
+    .side-bouquet.left { left: 0px; }
+    .side-bouquet.right { right: 0px; transform: scaleX(-1); }
 
-    .side-bouquet.right {
-      right: 2%;
-      transform: scaleX(-1) rotate(8deg);
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    /* CANVAS PRINCIPAL */
+    /* CANVAS PRINCIPAL (ÁRBOL Y BRILLOS) */
     canvas {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       display: block;
       position: absolute;
       top: 0; left: 0;
       z-index: 1;
     }
 
-    /* OVERLAY DE TEXTO Y CONTADOR */
+    /* OVERLAY DE CARTA Y CONTADOR */
     #content-overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -116,11 +96,11 @@
 
     #letter-box {
       position: absolute;
-      top: 12%;
+      top: 10%;
       left: 6%;
       max-width: 42%;
       opacity: 0;
-      transition: opacity 2s ease, transform 2s ease;
+      transition: opacity 1.5s ease, transform 1.5s ease;
       transform: translateY(20px);
     }
 
@@ -130,25 +110,25 @@
     }
 
     .letter-title {
-      font-size: 1.65rem;
+      font-size: 1.7rem;
       font-weight: 700;
-      color: #ffd700;
-      margin-bottom: 18px;
-      line-height: 1.35;
-      text-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+      color: #ffe600;
+      margin-bottom: 15px;
+      text-shadow: 0 0 12px rgba(255, 230, 0, 0.5);
     }
 
     .letter-body {
-      font-size: 1.2rem;
-      color: #f0e2d0;
+      font-size: 1.15rem;
+      color: #f8f8f8;
       line-height: 1.6;
       margin-bottom: 20px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.9);
     }
 
     .letter-sign {
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: 700;
-      color: #ffb700;
+      color: #ffd700;
     }
 
     #counter-box {
@@ -157,104 +137,121 @@
       left: 50%;
       transform: translateX(-50%);
       width: 90%;
-      max-width: 650px;
+      max-width: 600px;
       text-align: center;
       opacity: 0;
-      transition: opacity 2s ease;
-      background: rgba(15, 10, 7, 0.85);
+      transition: opacity 1.5s ease;
+      background: rgba(12, 9, 12, 0.85);
       padding: 12px 20px;
       border-radius: 20px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 25px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255, 215, 0, 0.25);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      box-shadow: 0 0 25px rgba(0,0,0,0.9);
     }
 
-    #counter-box.visible {
-      opacity: 1;
-    }
+    #counter-box.visible { opacity: 1; }
 
-    .counter-title {
-      font-size: 0.95rem;
-      color: #d1b89d;
-      margin-bottom: 4px;
-    }
+    .counter-title { font-size: 0.95rem; color: #ddd; margin-bottom: 4px; }
+    .counter-time { font-size: 1.15rem; font-weight: 700; color: #ffe600; }
 
-    .counter-time {
-      font-size: 1.15rem;
-      font-weight: 700;
+    /* BOTÓN MÚSICA */
+    #music-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 20;
+      background: rgba(255, 215, 0, 0.2);
+      border: 1px solid #ffd700;
       color: #ffd700;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      backdrop-filter: blur(5px);
     }
 
     @media (max-width: 768px) {
-      #letter-box { max-width: 88%; left: 6%; top: 6%; }
-      .letter-title { font-size: 1.2rem; }
+      #letter-box { max-width: 88%; left: 6%; top: 5%; }
+      .letter-title { font-size: 1.25rem; }
       .letter-body { font-size: 0.95rem; }
-      .letter-sign { font-size: 1.05rem; }
-      .counter-time { font-size: 0.95rem; }
-      .side-bouquet { width: 140px; height: 230px; }
+      .side-bouquet { width: 170px; height: 300px; }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Pantalla Inicial -->
+    <button id="music-btn">🎵 Música: On</button>
+
+    <!-- PANTALLA INICIAL CON RAMOS MÁS FIELES A LA IMAGEN -->
     <div id="start-screen">
       <!-- Ramo Izquierdo -->
-      <svg class="side-bouquet left" viewBox="0 0 200 300">
-        <path d="M100 300 Q80 200 40 120 M100 300 Q90 190 90 90 M100 300 Q110 200 150 110 M100 300 Q120 220 170 160" stroke="#2d4a1d" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <!-- Hojas -->
-        <path d="M85 220 Q50 200 60 170 Q90 190 85 220 Z" fill="#2d4a1d"/>
-        <path d="M110 210 Q150 190 140 160 Q110 180 110 210 Z" fill="#2d4a1d"/>
-        <!-- Flores -->
-        <g transform="translate(40,120) scale(0.65)"><circle r="15" fill="#3d2312"/><circle r="30" fill="none" stroke="#ffd700" stroke-width="12" stroke-dasharray="8 6"/></g>
-        <g transform="translate(90,90) scale(0.85)"><circle r="15" fill="#3d2312"/><circle r="30" fill="none" stroke="#ffd700" stroke-width="12" stroke-dasharray="8 6"/></g>
-        <g transform="translate(150,110) scale(0.7)"><circle r="15" fill="#3d2312"/><circle r="30" fill="none" stroke="#ffd700" stroke-width="12" stroke-dasharray="8 6"/></g>
-        <g transform="translate(170,160) scale(0.55)"><circle r="15" fill="#3d2312"/><circle r="30" fill="none" stroke="#ffd700" stroke-width="12" stroke-dasharray="8 6"/></g>
+      <svg class="side-bouquet left" viewBox="0 0 200 320">
+        <!-- Tallos Verde Oscuro -->
+        <path d="M100 320 Q70 200 30 110 M100 320 Q90 180 85 70 M100 320 Q110 190 150 90 M100 320 Q130 220 170 150" stroke="#2a4d1a" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <!-- Hojas Verdes Grandes -->
+        <path d="M75 230 Q30 200 45 160 Q80 190 75 230 Z" fill="#2d591b"/>
+        <path d="M115 220 Q155 190 145 150 Q110 180 115 220 Z" fill="#244a16"/>
+        <!-- Flores Estilo Exacto Imagen -->
+        <g transform="translate(30,110) scale(0.65)">
+          <!-- Pétalos -->
+          <circle r="34" fill="none" stroke="#ffcc00" stroke-width="18" stroke-dasharray="11 4"/>
+          <!-- Centro -->
+          <circle r="18" fill="#361a0c"/><circle r="12" fill="#210f06"/>
+        </g>
+        <g transform="translate(85,70) scale(0.85)">
+          <circle r="34" fill="none" stroke="#ffcc00" stroke-width="18" stroke-dasharray="11 4"/>
+          <circle r="18" fill="#361a0c"/><circle r="12" fill="#210f06"/>
+        </g>
+        <g transform="translate(150,90) scale(0.75)">
+          <circle r="34" fill="none" stroke="#ffcc00" stroke-width="18" stroke-dasharray="11 4"/>
+          <circle r="18" fill="#361a0c"/><circle r="12" fill="#210f06"/>
+        </g>
+        <g transform="translate(170,150) scale(0.6)">
+          <circle r="34" fill="none" stroke="#ffcc00" stroke-width="18" stroke-dasharray="11 4"/>
+          <circle r="18" fill="#361a0c"/><circle r="12" fill="#210f06"/>
+        </g>
       </svg>
 
       <!-- Ramo Derecho -->
-      <svg class="side-bouquet right" viewBox="0 0 200 300">
-        <path d="M100 300 Q80 200 40 120 M100 300 Q90 190 90 90 M100 300 Q110 200 150 110 M100 300 Q120 220 170 160" stroke="#2d4a1d" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <!-- Hojas -->
-        <path d="M85 220 Q50 200 60 170 Q90 190 85 220 Z" fill="#2d4a1d"/>
-        <path d="M110 210 Q150 190 140 160 Q110 180 110 210 Z" fill="#2d4a1d"/>
-        <!-- Flores -->
-        <g transform="translate(40,120) scale(0.65)"><circle r="15" fill="#3d2312"/><circle r="30" fill="none" stroke="#ffd700" stroke-width="12" stroke-dasharray="8 6"/></g>
-        <g transform="translate(90,90) scale(0.85)"><circle r="15" fill="#3d2312"/><circle r="30" fill="none" stroke="#ffd700" stroke-width="12" stroke-dasharray="8 6"/></g>
-        <g transform="translate(150,110) scale(0.7)"><circle r="15" fill="#3d2312"/><circle r="30" fill="none" stroke="#ffd700" stroke-width="12" stroke-dasharray="8 6"/></g>
-        <g transform="translate(170,160) scale(0.55)"><circle r="15" fill="#3d2312"/><circle r="30" fill="none" stroke="#ffd700" stroke-width="12" stroke-dasharray="8 6"/></g>
+      <svg class="side-bouquet right" viewBox="0 0 200 320">
+        <path d="M100 320 Q70 200 30 110 M100 320 Q90 180 85 70 M100 320 Q110 190 150 90 M100 320 Q130 220 170 150" stroke="#2a4d1a" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <path d="M75 230 Q30 200 45 160 Q80 190 75 230 Z" fill="#2d591b"/>
+        <path d="M115 220 Q155 190 145 150 Q110 180 115 220 Z" fill="#244a16"/>
+        <g transform="translate(30,110) scale(0.65)">
+          <circle r="34" fill="none" stroke="#ffcc00" stroke-width="18" stroke-dasharray="11 4"/>
+          <circle r="18" fill="#361a0c"/><circle r="12" fill="#210f06"/>
+        </g>
+        <g transform="translate(85,70) scale(0.85)">
+          <circle r="34" fill="none" stroke="#ffcc00" stroke-width="18" stroke-dasharray="11 4"/>
+          <circle r="18" fill="#361a0c"/><circle r="12" fill="#210f06"/>
+        </g>
+        <g transform="translate(150,90) scale(0.75)">
+          <circle r="34" fill="none" stroke="#ffcc00" stroke-width="18" stroke-dasharray="11 4"/>
+          <circle r="18" fill="#361a0c"/><circle r="12" fill="#210f06"/>
+        </g>
+        <g transform="translate(170,150) scale(0.6)">
+          <circle r="34" fill="none" stroke="#ffcc00" stroke-width="18" stroke-dasharray="11 4"/>
+          <circle r="18" fill="#361a0c"/><circle r="12" fill="#210f06"/>
+        </g>
       </svg>
 
       <div class="start-center">
-        <svg class="flower-start" viewBox="0 0 100 100">
+        <!-- Flor Centro -->
+        <svg width="100" height="100" viewBox="0 0 100 100">
           <g transform="translate(50,50)">
-            <circle r="18" fill="#5c3a21" />
-            <circle r="15" fill="#3d2312" />
-            <g>
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(30)" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(60)" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(90)" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(120)" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(150)" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(180)" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(210)" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(240)" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(270)" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(300)" />
-              <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(330)" />
-            </g>
+            <circle r="34" fill="none" stroke="#ffcc00" stroke-width="18" stroke-dasharray="11 4" />
+            <circle r="18" fill="#361a0c" />
+            <circle r="12" fill="#210f06" />
           </g>
         </svg>
-        <div class="start-btn">Unas flores para ti mi preciosa yaquibara❤️</div>
+        <div class="start-btn">Unas flores para ti mi preciosa yaquibara❤️<br><span style="font-size: 1rem; color: #ccc; font-weight: 400;">(Toca la pantalla para comenzar)</span></div>
       </div>
     </div>
 
     <!-- Canvas -->
     <canvas id="mainCanvas"></canvas>
 
-    <!-- Texto y Contador -->
+    <!-- Overlay Texto/Contador -->
     <div id="content-overlay">
       <div id="letter-box">
         <div class="letter-title">Flores Amarillas para la persona que ilumina mi vida:</div>
@@ -273,6 +270,8 @@
     </div>
   </div>
 
+  <audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112189.mp3"></audio>
+
   <script>
     const startScreen = document.getElementById('start-screen');
     const canvas = document.getElementById('mainCanvas');
@@ -280,6 +279,22 @@
     const letterBox = document.getElementById('letter-box');
     const counterBox = document.getElementById('counter-box');
     const timerElem = document.getElementById('timer');
+    const music = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+
+    let musicPlaying = true;
+
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (musicPlaying) {
+        music.pause();
+        musicBtn.innerText = "🔇 Música: Off";
+      } else {
+        music.play();
+        musicBtn.innerText = "🎵 Música: On";
+      }
+      musicPlaying = !musicPlaying;
+    });
 
     const startDate = new Date('2025-05-21T00:00:00');
 
@@ -293,18 +308,16 @@
     function updateTimer() {
       const now = new Date();
       const diff = now - startDate;
-
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
-
       timerElem.innerText = `${days} días ${hours < 10 ? '0' : ''}${hours} horas ${minutes < 10 ? '0' : ''}${minutes} minutos ${seconds < 10 ? '0' : ''}${seconds} segundos`;
     }
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // DIBUJO DE GIRASOL REALISTA
+    // DIBUJO DE GIRASOL FIEL A LA CAPTURA DE REFERENCIA
     function drawSunflower(ctx, x, y, size, angle = 0) {
       if (size <= 0) return;
       ctx.save();
@@ -317,31 +330,77 @@
         ctx.rotate((i * Math.PI * 2) / numPetals);
         ctx.beginPath();
         ctx.moveTo(0, 0);
-        ctx.quadraticCurveTo(size * 0.28, -size * 0.55, 0, -size);
-        ctx.quadraticCurveTo(-size * 0.28, -size * 0.55, 0, 0);
-        ctx.fillStyle = i % 2 === 0 ? '#ffd700' : '#ffb700';
+        ctx.quadraticCurveTo(size * 0.3, -size * 0.55, 0, -size);
+        ctx.quadraticCurveTo(-size * 0.3, -size * 0.55, 0, 0);
+        
+        // Gradiente de color en los pétalos (amarillo-naranja suave)
+        const grad = ctx.createLinearGradient(0, 0, 0, -size);
+        grad.addColorStop(0, '#ffaa00');
+        grad.addColorStop(0.4, '#ffea00');
+        grad.addColorStop(1, '#ffee55');
+        ctx.fillStyle = grad;
         ctx.fill();
         ctx.restore();
       }
 
+      // Centro Oscuro con Anillos Radial
       ctx.beginPath();
-      ctx.arc(0, 0, size * 0.35, 0, Math.PI * 2);
-      ctx.fillStyle = '#4a2a11';
+      ctx.arc(0, 0, size * 0.38, 0, Math.PI * 2);
+      ctx.fillStyle = '#33180a';
       ctx.fill();
 
       ctx.beginPath();
-      ctx.arc(0, 0, size * 0.22, 0, Math.PI * 2);
-      ctx.fillStyle = '#2b1505';
+      ctx.arc(0, 0, size * 0.24, 0, Math.PI * 2);
+      ctx.fillStyle = '#1c0c04';
       ctx.fill();
 
       ctx.restore();
     }
 
-    // ESTADOS DE ANIMACIÓN
+    // SISTEMA DE BRILLOS FLOTANTES Y ESTRELLAS (FONDO IGUAL A LA IMAGEN)
+    const sparkles = [];
+    for(let i = 0; i < 150; i++) {
+      sparkles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        size: Math.random() * 3 + 1,
+        alpha: Math.random(),
+        speedY: -(Math.random() * 0.6 + 0.2),
+        pulseSpeed: Math.random() * 0.03 + 0.01,
+        isStar: Math.random() > 0.6
+      });
+    }
+
+    function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius, alpha) {
+      let rot = Math.PI / 2 * 3;
+      let x = cx;
+      let y = cy;
+      let step = Math.PI / spikes;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - outerRadius);
+      for (let i = 0; i < spikes; i++) {
+        x = cx + Math.cos(rot) * outerRadius;
+        y = cy + Math.sin(rot) * outerRadius;
+        ctx.lineTo(x, y);
+        rot += step;
+
+        x = cx + Math.cos(rot) * innerRadius;
+        y = cy + Math.sin(rot) * innerRadius;
+        ctx.lineTo(x, y);
+        rot += step;
+      }
+      ctx.lineTo(cx, cy - outerRadius);
+      ctx.closePath();
+      ctx.fillStyle = `rgba(255, 230, 120, ${alpha})`;
+      ctx.fill();
+      ctx.restore();
+    }
+
     let state = 'IDLE'; 
     let treeOffset = 0;
     let targetOffset = 0;
-
     let startFlower = { scale: 1, y: 0 };
     let seed = { x: 0, y: 0, rotation: 0 };
     let treeProgress = 0;
@@ -349,33 +408,31 @@
     let flowersList = [];
     let windPetals = [];
 
-    // Generar flores dispersas en la copa
     function generateHeartFlowers() {
       const list = [];
-      const count = 680;
+      const count = 650;
       for (let i = 0; i < count; i++) {
         const t = Math.random() * Math.PI * 2;
         const scaleFactor = Math.sqrt(Math.random()); 
-        const r = 11.2 * scaleFactor; 
+        const r = 11.5 * scaleFactor; 
         
         const hx = r * (16 * Math.pow(Math.sin(t), 3));
         const hy = -r * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
-        const delay = Math.random() * 0.85;
-
         list.push({
-          relX: hx + (Math.random() - 0.5) * 10,
-          relY: hy + (Math.random() - 0.5) * 10,
+          relX: hx + (Math.random() - 0.5) * 8,
+          relY: hy + (Math.random() - 0.5) * 8,
           size: 9 + Math.random() * 7,
           currentSize: 0,
           rotation: Math.random() * Math.PI * 2,
-          delay: delay
+          delay: Math.random() * 0.45
         });
       }
       return list;
     }
 
     startScreen.addEventListener('click', () => {
+      music.play().catch(() => {});
       startScreen.style.opacity = '0';
       setTimeout(() => {
         startScreen.style.display = 'none';
@@ -390,24 +447,37 @@
     }
 
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Fondo Oscuro
+      ctx.fillStyle = '#080608';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Dibujar Brillos y Estrellas Animadas en Movimiento
+      sparkles.forEach(s => {
+        s.y += s.speedY;
+        s.alpha += s.pulseSpeed;
+        if (s.alpha > 1 || s.alpha < 0) s.pulseSpeed = -s.pulseSpeed;
+
+        if (s.y < -10) {
+          s.y = canvas.height + 10;
+          s.x = Math.random() * canvas.width;
+        }
+
+        if (s.isStar) {
+          drawStar(ctx, s.x, s.y, 4, s.size * 2.5, s.size * 0.8, Math.abs(s.alpha));
+        } else {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 220, 100, ${Math.abs(s.alpha)})`;
+          ctx.fill();
+        }
+      });
 
       const centerX = canvas.width / 2;
       const groundY = canvas.height - 70;
 
-      // Línea de suelo sutil
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, groundY);
-      ctx.lineTo(canvas.width, groundY);
-      ctx.strokeStyle = '#3d2314';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-      ctx.restore();
-
-      // 1. TRANSICIÓN DE LA FLOR INICIAL A LA SEMILLA
+      // 1. TRANSICIÓN A SEMILLA
       if (state === 'FLOWER_TO_SEED') {
-        startFlower.scale -= 0.02;
+        startFlower.scale -= 0.03;
         if (startFlower.scale > 0.1) {
           drawSunflower(ctx, centerX, startFlower.y, 55 * startFlower.scale);
         } else {
@@ -417,18 +487,18 @@
         }
       }
 
-      // 2. CAÍDA DE LA SEMILLA AL SUELO
+      // 2. CAÍDA DE LA SEMILLA
       else if (state === 'SEED_FALLING') {
-        seed.y += 1.8;
-        seed.x = centerX + Math.sin(seed.y * 0.03) * 6;
-        seed.rotation += 0.025;
+        seed.y += 2.5;
+        seed.x = centerX + Math.sin(seed.y * 0.04) * 5;
+        seed.rotation += 0.04;
 
         ctx.save();
         ctx.translate(seed.x, seed.y);
         ctx.rotate(seed.rotation);
         ctx.beginPath();
         ctx.ellipse(0, 0, 7, 4, 0, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffb700';
+        ctx.fillStyle = '#ffe600';
         ctx.fill();
         ctx.restore();
 
@@ -438,10 +508,10 @@
         }
       }
 
-      // 3. CRECIMIENTO DEL ÁRBOL Y FLORACIÓN
+      // 3. CRECIMIENTO DEL ÁRBOL
       else if (state === 'TREE_GROWING' || state === 'BLOOMING' || state === 'SHIFTING' || state === 'FINAL') {
         if (state === 'TREE_GROWING') {
-          treeProgress += 0.012; 
+          treeProgress += 0.025;
           if (treeProgress >= 1) {
             treeProgress = 1;
             state = 'BLOOMING';
@@ -449,7 +519,7 @@
         }
 
         if (state === 'BLOOMING') {
-          bloomProgress += 0.005;
+          bloomProgress += 0.018;
           if (bloomProgress >= 1) {
             bloomProgress = 1;
             state = 'SHIFTING';
@@ -458,7 +528,7 @@
         }
 
         if (state === 'SHIFTING') {
-          treeOffset += (targetOffset - treeOffset) * 0.025;
+          treeOffset += (targetOffset - treeOffset) * 0.035;
           if (Math.abs(targetOffset - treeOffset) < 1) {
             treeOffset = targetOffset;
             state = 'FINAL';
@@ -468,11 +538,11 @@
         }
 
         if (state === 'FINAL') {
-          if (Math.random() < 0.18) {
+          if (Math.random() < 0.2) {
             windPetals.push({
               x: (centerX + treeOffset) + (Math.random() - 0.5) * 140,
               y: (groundY - 300) + (Math.random() - 0.5) * 140,
-              vx: -(1.2 + Math.random() * 1.5),
+              vx: -(1.5 + Math.random() * 1.5),
               vy: (Math.random() - 0.5) * 0.8,
               size: 5 + Math.random() * 4,
               rotation: Math.random() * Math.PI * 2,
@@ -481,14 +551,13 @@
           }
         }
 
-        // DIBUJAR ÁRBOL ORGÁNICO
+        // DIBUJAR TRONCO Y RAMAS
         ctx.save();
         ctx.translate(centerX + treeOffset, groundY);
 
         const h = 230 * treeProgress;
 
-        // Base y Tronco
-        ctx.fillStyle = '#6e3c19';
+        ctx.fillStyle = '#4a2810';
         ctx.beginPath();
         ctx.moveTo(-32 * treeProgress, 0);
         ctx.quadraticCurveTo(-15 * treeProgress, -15 * treeProgress, -12 * treeProgress, -40 * treeProgress);
@@ -505,13 +574,10 @@
         ctx.closePath();
         ctx.fill();
 
-        // Ramas
         if (treeProgress > 0.3) {
           const bp = (treeProgress - 0.3) / 0.7;
-
-          ctx.strokeStyle = '#6e3c19';
+          ctx.strokeStyle = '#4a2810';
           ctx.lineCap = 'round';
-          ctx.lineJoin = 'round';
 
           ctx.lineWidth = 10 * bp;
           ctx.beginPath();
@@ -519,40 +585,17 @@
           ctx.quadraticCurveTo(-45 * bp, -h * 0.85, -85 * bp, -h * 1.05);
           ctx.stroke();
 
-          ctx.lineWidth = 10 * bp;
           ctx.beginPath();
           ctx.moveTo(0, -h * 0.65);
           ctx.quadraticCurveTo(45 * bp, -h * 0.88, 88 * bp, -h * 1.08);
           ctx.stroke();
-
-          ctx.lineWidth = 5 * bp;
-          ctx.beginPath();
-          ctx.moveTo(-35 * bp, -h * 0.78);
-          ctx.quadraticCurveTo(-20 * bp, -h * 1.02, -30 * bp, -h * 1.25);
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.moveTo(35 * bp, -h * 0.82);
-          ctx.quadraticCurveTo(20 * bp, -h * 1.05, 30 * bp, -h * 1.28);
-          ctx.stroke();
-
-          ctx.lineWidth = 3.5 * bp;
-          ctx.beginPath();
-          ctx.moveTo(-60 * bp, -h * 0.92);
-          ctx.quadraticCurveTo(-90 * bp, -h * 1.05, -110 * bp, -h * 1.18);
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.moveTo(60 * bp, -h * 0.95);
-          ctx.quadraticCurveTo(90 * bp, -h * 1.08, 110 * bp, -h * 1.20);
-          ctx.stroke();
         }
 
-        // DIBUJAR FLORES EN LA COPA
+        // DIBUJAR COPA CON FORMA DE CORAZÓN
         if (bloomProgress > 0) {
           flowersList.forEach(f => {
             if (bloomProgress > f.delay) {
-              const localProg = Math.min((bloomProgress - f.delay) / 0.18, 1);
+              const localProg = Math.min((bloomProgress - f.delay) / 0.15, 1);
               f.currentSize = f.size * localProg;
               drawSunflower(ctx, f.relX, f.relY - 280, f.currentSize, f.rotation);
             }
@@ -561,18 +604,14 @@
 
         ctx.restore();
 
-        // PÉTALOS VOLANDO EN EL VIENTO
+        // PÉTALOS FLOTANTES
         for (let i = windPetals.length - 1; i >= 0; i--) {
           const p = windPetals[i];
           p.x += p.vx;
           p.y += p.vy;
           p.rotation += p.vRot;
-
           drawSunflower(ctx, p.x, p.y, p.size, p.rotation);
-
-          if (p.x < -30 || p.y > canvas.height + 30) {
-            windPetals.splice(i, 1);
-          }
+          if (p.x < -30 || p.y > canvas.height + 30) windPetals.splice(i, 1);
         }
       }
 
