@@ -55,7 +55,7 @@
       font-weight: 700;
       color: #8b5a2b;
       text-align: center;
-      max-width: 80%;
+      max-width: 85%;
       line-height: 1.4;
       border-bottom: 2px dashed #e6a100;
       padding-bottom: 8px;
@@ -63,10 +63,10 @@
 
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.12); }
+      50% { transform: scale(1.1); }
     }
 
-    /* CANVAS */
+    /* CANVAS PRINCIPAL */
     canvas {
       width: 100%;
       height: 100%;
@@ -76,7 +76,7 @@
       z-index: 1;
     }
 
-    /* INTERFAZ DE TEXTO Y CONTADOR */
+    /* OVERLAY DE TEXTO Y CONTADOR */
     #content-overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -86,11 +86,11 @@
 
     #letter-box {
       position: absolute;
-      top: 15%;
+      top: 12%;
       left: 7%;
       max-width: 45%;
       opacity: 0;
-      transition: opacity 2s ease, transform 2s ease;
+      transition: opacity 2.5s ease, transform 2.5s ease;
       transform: translateY(20px);
     }
 
@@ -104,7 +104,7 @@
       font-weight: 700;
       color: #6b4423;
       margin-bottom: 20px;
-      line-height: 1.3;
+      line-height: 1.35;
     }
 
     .letter-body {
@@ -122,11 +122,11 @@
 
     #counter-box {
       position: absolute;
-      bottom: 25px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       width: 90%;
-      max-width: 600px;
+      max-width: 650px;
       text-align: center;
       opacity: 0;
       transition: opacity 2s ease;
@@ -134,7 +134,7 @@
       padding: 12px 20px;
       border-radius: 20px;
       backdrop-filter: blur(6px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
       border: 1px solid rgba(230, 161, 0, 0.2);
     }
 
@@ -191,10 +191,10 @@
       <div class="start-btn">Unas flores para ti mi preciosa yaquibara❤️</div>
     </div>
 
-    <!-- Canvas Principal -->
+    <!-- Canvas -->
     <canvas id="mainCanvas"></canvas>
 
-    <!-- Overlay de Texto y Contador -->
+    <!-- Texto y Contador -->
     <div id="content-overlay">
       <div id="letter-box">
         <div class="letter-title">Flores Amarillas para la persona que ilumina mi vida:</div>
@@ -221,7 +221,7 @@
     const counterBox = document.getElementById('counter-box');
     const timerElem = document.getElementById('timer');
 
-    // Fecha de inicio
+    // Fecha de inicio (21 de mayo de 2025 para cumplir 1 año y 4 meses el 21 de septiembre)
     const startDate = new Date('2025-05-21T00:00:00');
 
     function resize() {
@@ -231,7 +231,7 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Lógica del contador
+    // Contador
     function updateTimer() {
       const now = new Date();
       const diff = now - startDate;
@@ -246,40 +246,40 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // DIBUJO DE GIRASOL REALISTA
+    // DIBUJO DE GIRASOL REALISTA CON PÉTALOS SUAVES
     function drawSunflower(ctx, x, y, size, angle = 0) {
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(angle);
 
-      const numPetals = 14;
+      const numPetals = 12;
       for (let i = 0; i < numPetals; i++) {
         ctx.save();
         ctx.rotate((i * Math.PI * 2) / numPetals);
         
         ctx.beginPath();
         ctx.moveTo(0, 0);
-        ctx.quadraticCurveTo(size * 0.35, -size * 0.6, 0, -size);
-        ctx.quadraticCurveTo(-size * 0.35, -size * 0.6, 0, 0);
-        ctx.fillStyle = i % 2 === 0 ? '#ffcc00' : '#ffa000';
+        ctx.quadraticCurveTo(size * 0.3, -size * 0.6, 0, -size);
+        ctx.quadraticCurveTo(-size * 0.3, -size * 0.6, 0, 0);
+        ctx.fillStyle = i % 2 === 0 ? '#ffd700' : '#ffb700';
         ctx.fill();
         ctx.restore();
       }
 
       ctx.beginPath();
-      ctx.arc(0, 0, size * 0.38, 0, Math.PI * 2);
-      ctx.fillStyle = '#4a2c11';
+      ctx.arc(0, 0, size * 0.35, 0, Math.PI * 2);
+      ctx.fillStyle = '#4a2a11';
       ctx.fill();
 
       ctx.beginPath();
-      ctx.arc(0, 0, size * 0.26, 0, Math.PI * 2);
-      ctx.fillStyle = '#2d1808';
+      ctx.arc(0, 0, size * 0.22, 0, Math.PI * 2);
+      ctx.fillStyle = '#2b1505';
       ctx.fill();
 
       ctx.restore();
     }
 
-    // ESTADOS Y VARIABLES
+    // ESTADOS DE LA ANIMACIÓN
     let state = 'IDLE'; 
     let treeOffset = 0;
     let targetOffset = 0;
@@ -291,26 +291,27 @@
     let flowersList = [];
     let windPetals = [];
 
-    // Generar flores rellenas en todo el corazón (sin huecos)
-    function generateFilledHeartFlowers(cx, cy) {
+    // Generar flores que forman la copa exacta en corazón alta y llena como la imagen de referencia
+    function generateHeartFlowers() {
       const list = [];
-      const count = 550; // Densidad alta para rellenar
+      const count = 580; // Copa tupida
       for (let i = 0; i < count; i++) {
         const t = Math.random() * Math.PI * 2;
-        // Factor de escala interno para tupir todo el interior del corazón
         const scaleFactor = Math.sqrt(Math.random()); 
-        const r = 8.5 * scaleFactor; 
+        const r = 10.5 * scaleFactor; 
         
+        // Forma paramétrica de corazón alto
         const hx = r * (16 * Math.pow(Math.sin(t), 3));
         const hy = -r * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
         list.push({
-          relX: hx + (Math.random() - 0.5) * 8,
-          relY: hy + (Math.random() - 0.5) * 8,
-          size: 8 + Math.random() * 6,
+          relX: hx + (Math.random() - 0.5) * 6,
+          relY: hy + (Math.random() - 0.5) * 6,
+          size: 9 + Math.random() * 6,
           currentSize: 0,
           rotation: Math.random() * Math.PI * 2,
-          delay: Math.random() * 0.6
+          // Retardo progresivo para que florezca despacio
+          delay: Math.random()
         });
       }
       return list;
@@ -333,29 +334,21 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const centerX = canvas.width / 2;
-      // Posición elevada del piso para dar soporte visual
-      const groundY = canvas.height - 120;
+      const groundY = canvas.height - 80;
 
       // 0. DIBUJAR PISO
       ctx.save();
-      // Césped / Colina suave
-      ctx.beginPath();
-      ctx.ellipse(centerX, groundY + 120, canvas.width * 0.8, 140, 0, Math.PI, 0, true);
-      ctx.fillStyle = '#e8decb';
-      ctx.fill();
-
-      // Línea de tierra
       ctx.beginPath();
       ctx.moveTo(0, groundY);
       ctx.lineTo(canvas.width, groundY);
-      ctx.strokeStyle = '#c4b39d';
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#3d2514';
+      ctx.lineWidth = 4;
       ctx.stroke();
       ctx.restore();
 
-      // 1. FLOR A SEMILLA
+      // 1. FLOR INICIAL SE CONVIERTE EN SEMILLA (SIN DUPLICAR)
       if (state === 'FLOWER_TO_SEED') {
-        startFlower.scale -= 0.018;
+        startFlower.scale -= 0.02;
         if (startFlower.scale > 0) {
           drawSunflower(ctx, centerX, startFlower.y, 50 * startFlower.scale);
         } else {
@@ -367,8 +360,8 @@
 
       // 2. CAÍDA LENTA Y PAUSADA DE LA SEMILLA
       else if (state === 'SEED_FALLING') {
-        seed.y += 1.1; // Caída más lenta
-        seed.x = centerX + Math.sin(seed.y * 0.03) * 15;
+        seed.y += 1.2;
+        seed.x = centerX + Math.sin(seed.y * 0.03) * 12;
         seed.rotation += 0.02;
 
         ctx.save();
@@ -376,32 +369,33 @@
         ctx.rotate(seed.rotation);
         ctx.beginPath();
         ctx.ellipse(0, 0, 8, 4.5, 0, 0, Math.PI * 2);
-        ctx.fillStyle = '#6b4423';
+        ctx.fillStyle = '#5c3a21';
         ctx.fill();
         ctx.restore();
 
         if (seed.y >= groundY - 5) {
           state = 'TREE_GROWING';
-          flowersList = generateFilledHeartFlowers(0, -210);
+          flowersList = generateHeartFlowers();
         }
       }
 
-      // 3. CRECIMIENTO Y RAMIFICACIÓN COMPLETA
+      // 3. CRECIMIENTO DEL ÁRBOL
       else if (state === 'TREE_GROWING' || state === 'BLOOMING' || state === 'SHIFTING' || state === 'FINAL') {
         if (state === 'TREE_GROWING') {
-          treeProgress += 0.01;
+          treeProgress += 0.008;
           if (treeProgress >= 1) {
             treeProgress = 1;
             state = 'BLOOMING';
           }
         }
 
+        // FLORACIÓN PAUSADA Y DESPACIO
         if (state === 'BLOOMING') {
-          bloomProgress += 0.008;
+          bloomProgress += 0.0035; // Transición lenta
           if (bloomProgress >= 1) {
             bloomProgress = 1;
             state = 'SHIFTING';
-            targetOffset = canvas.width > 768 ? canvas.width * 0.23 : 0; // Desplazamiento adaptable
+            targetOffset = canvas.width > 768 ? canvas.width * 0.23 : 0;
           }
         }
 
@@ -416,10 +410,10 @@
         }
 
         if (state === 'FINAL') {
-          if (Math.random() < 0.25) {
+          if (Math.random() < 0.2) {
             windPetals.push({
-              x: (centerX + treeOffset) + (Math.random() - 0.5) * 100,
-              y: (groundY - 210) + (Math.random() - 0.5) * 100,
+              x: (centerX + treeOffset) + (Math.random() - 0.5) * 120,
+              y: (groundY - 320) + (Math.random() - 0.5) * 120,
               vx: -(1.2 + Math.random() * 1.2),
               vy: (Math.random() - 0.5) * 0.6,
               size: 5 + Math.random() * 4,
@@ -429,64 +423,58 @@
           }
         }
 
-        // DIBUJAR ÁRBOL COMPLETO Y MÁS RAMIFICADO
+        // DIBUJAR ÁRBOL ESTILIZADO CON TRONCO LIMPIO Y RAMAS FINAS COMO LA REFERENCIA
         ctx.save();
         ctx.translate(centerX + treeOffset, groundY);
 
-        // Tronco principal
+        // Tronco vertical limpio tipo referencia
+        const trunkH = 220 * treeProgress;
         ctx.beginPath();
         ctx.moveTo(0, 0);
-        const trunkH = 180 * treeProgress;
         ctx.lineTo(0, -trunkH);
-        ctx.strokeStyle = '#5c3a21';
-        ctx.lineWidth = 16 * (1 - treeProgress * 0.3);
+        ctx.strokeStyle = '#7c431d';
+        ctx.lineWidth = 18 * (1 - treeProgress * 0.25);
         ctx.lineCap = 'round';
         ctx.stroke();
 
-        // Múltiples ramas secundarias e internas
-        if (treeProgress > 0.3) {
-          const bp = (treeProgress - 0.3) / 0.7;
-          ctx.strokeStyle = '#5c3a21';
+        // Ramas elegantes e integradas sutilmente hacia arriba
+        if (treeProgress > 0.4) {
+          const bp = (treeProgress - 0.4) / 0.6;
+          ctx.strokeStyle = '#7c431d';
+          ctx.lineWidth = 4;
 
-          // Rama Principal Izquierda
-          ctx.lineWidth = 9;
+          // Rama Izquierda
           ctx.beginPath();
-          ctx.moveTo(0, -70 * bp);
-          ctx.quadraticCurveTo(-35, -120, -65 * bp, -160 * bp);
+          ctx.moveTo(0, -120 * bp);
+          ctx.quadraticCurveTo(-40 * bp, -180 * bp, -75 * bp, -240 * bp);
           ctx.stroke();
 
-          // Rama Principal Derecha
-          ctx.lineWidth = 9;
+          // Rama Derecha
           ctx.beginPath();
-          ctx.moveTo(0, -90 * bp);
-          ctx.quadraticCurveTo(35, -135, 65 * bp, -170 * bp);
+          ctx.moveTo(0, -140 * bp);
+          ctx.quadraticCurveTo(40 * bp, -200 * bp, 75 * bp, -250 * bp);
           ctx.stroke();
 
-          // Sub-ramas internas para llenar el cuerpo
-          ctx.lineWidth = 5;
+          // Sub-ramas secundarias delgadas
+          ctx.lineWidth = 2.5;
           ctx.beginPath();
-          ctx.moveTo(-30 * bp, -130 * bp);
-          ctx.quadraticCurveTo(-15, -170, -10 * bp, -210 * bp);
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.moveTo(30 * bp, -140 * bp);
-          ctx.quadraticCurveTo(15, -180, 10 * bp, -220 * bp);
+          ctx.moveTo(-35 * bp, -170 * bp);
+          ctx.quadraticCurveTo(-20, -230, -30 * bp, -290 * bp);
           ctx.stroke();
 
           ctx.beginPath();
-          ctx.moveTo(0, -110 * bp);
-          ctx.quadraticCurveTo(0, -160, 0, -230 * bp);
+          ctx.moveTo(35 * bp, -180 * bp);
+          ctx.quadraticCurveTo(20, -240, 30 * bp, -300 * bp);
           ctx.stroke();
         }
 
-        // FLORACIÓN TUPIDA (CORAZÓN COMPLETO)
+        // FLORACIÓN TUPIDA DE LA COPA EN ALTURA CORAZÓN (-280px)
         if (bloomProgress > 0) {
           flowersList.forEach(f => {
             if (bloomProgress > f.delay) {
-              const localProg = Math.min((bloomProgress - f.delay) / 0.35, 1);
+              const localProg = Math.min((bloomProgress - f.delay) / 0.25, 1);
               f.currentSize = f.size * localProg;
-              drawSunflower(ctx, f.relX, f.relY - 120, f.currentSize, f.rotation);
+              drawSunflower(ctx, f.relX, f.relY - 280, f.currentSize, f.rotation);
             }
           });
         }
