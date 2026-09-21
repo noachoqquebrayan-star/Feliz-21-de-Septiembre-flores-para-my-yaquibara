@@ -5,45 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flores Amarillas para Jaqueline 🌻❤️</title>
   
-  <!-- Vista previa para WhatsApp -->
   <meta property="og:title" content="Flores Amarillas para el amor de mi vida 🌻❤️" />
   <meta property="og:description" content="Jaqueline, abre este enlace para ver tu regalo especial ✨" />
   <meta property="og:type" content="website" />
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background-color: #fdf6ec;
+      background-color: #fcf8f2;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow-x: hidden;
+      overflow: hidden;
       color: #4a3b32;
     }
 
     .container {
-      width: 100%;
-      max-width: 480px;
-      min-height: 100vh;
-      background-color: #fffaf0;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      width: 100vw;
+      height: 100vh;
       position: relative;
-      padding: 20px;
+      background: #fcf8f2;
     }
 
     /* PANTALLA INICIAL */
     #start-screen {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -54,9 +43,10 @@
       transition: opacity 0.8s ease;
     }
 
-    .flower-icon {
-      font-size: 4rem;
-      animation: pulse 1.8s infinite ease-in-out;
+    .flower-start {
+      width: 90px;
+      height: 90px;
+      animation: pulse 2s infinite ease-in-out;
     }
 
     .start-btn {
@@ -64,84 +54,91 @@
       font-weight: 600;
       color: #8b5a2b;
       border-bottom: 2px dashed #e6a100;
-      padding-bottom: 5px;
+      padding-bottom: 4px;
     }
 
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.15); }
+      50% { transform: scale(1.12); }
     }
 
-    /* ESCENARIO DE ANIMACIÓN */
-    #canvas-container {
-      width: 100%;
-      height: 100vh;
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
+    /* CANVAS DE ANIMACIONES */
     canvas {
       width: 100%;
       height: 100%;
       display: block;
+      position: absolute;
+      top: 0; left: 0;
+      z-index: 1;
     }
 
-    /* MENSAJE Y CONTADOR */
-    #letter-box {
+    /* CONTENIDO (TEXTO Y CONTADOR) */
+    #content-overlay {
       position: absolute;
-      top: 40px;
-      left: 20px;
-      max-width: 260px;
-      opacity: 0;
-      transition: opacity 1.5s ease;
+      top: 0; left: 0; width: 100%; height: 100%;
       z-index: 5;
       pointer-events: none;
     }
 
+    #letter-box {
+      position: absolute;
+      top: 12%;
+      left: 6%;
+      max-width: 48%;
+      opacity: 0;
+      transition: opacity 2s ease, transform 2s ease;
+      transform: translateY(15px);
+    }
+
+    #letter-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .letter-title {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #6b4423;
-      margin-bottom: 12px;
-      line-height: 1.3;
+      margin-bottom: 14px;
+      line-height: 1.35;
     }
 
     .letter-body {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #554035;
-      line-height: 1.4;
-      margin-bottom: 12px;
+      line-height: 1.5;
+      margin-bottom: 14px;
     }
 
     .letter-sign {
-      font-size: 0.95rem;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 700;
       color: #8b5a2b;
     }
 
     #counter-box {
       position: absolute;
-      bottom: 25px;
+      bottom: 20px;
+      left: 5%;
       width: 90%;
       text-align: center;
       opacity: 0;
-      transition: opacity 1.5s ease;
-      z-index: 5;
-      background: rgba(255, 250, 240, 0.85);
+      transition: opacity 2s ease;
+      background: rgba(252, 248, 242, 0.85);
       padding: 10px 15px;
-      border-radius: 15px;
-      backdrop-filter: blur(4px);
+      border-radius: 18px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    }
+
+    #counter-box.visible {
+      opacity: 1;
     }
 
     .counter-title {
       font-size: 0.85rem;
       color: #7a5c43;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .counter-time {
@@ -149,257 +146,342 @@
       font-weight: 700;
       color: #b37d00;
     }
+
+    @media (max-width: 480px) {
+      #letter-box { max-width: 52%; left: 4%; top: 10%; }
+      .letter-title { font-size: 1rem; }
+      .letter-body { font-size: 0.85rem; }
+      .letter-sign { font-size: 0.9rem; }
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Pantalla de inicio -->
+    <!-- Pantalla Inicial -->
     <div id="start-screen">
-      <div class="flower-icon">🌻</div>
-      <div class="start-btn">Flores Para Ti</div>
+      <svg class="flower-start" viewBox="0 0 100 100">
+        <!-- Girasol estilizado vector de inicio -->
+        <g transform="translate(50,50)">
+          <circle r="18" fill="#5c3a21" />
+          <circle r="15" fill="#3d2312" />
+          <g id="petals">
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(30)" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(60)" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(90)" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(120)" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(150)" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(180)" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(210)" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(240)" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(270)" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(300)" />
+            <ellipse cx="0" cy="-30" rx="6" ry="14" fill="#ffd700" transform="rotate(330)" />
+          </g>
+        </g>
+      </svg>
+      <div class="start-btn">Flores Para Tí</div>
     </div>
 
-    <!-- Escenario principal -->
-    <div id="canvas-container">
+    <!-- Canvas Principal -->
+    <canvas id="mainCanvas"></canvas>
+
+    <!-- Superposición de Texto y Contador -->
+    <div id="content-overlay">
       <div id="letter-box">
-        <div class="letter-title">Flores Amarillas para el amor de mi vida:</div>
+        <div class="letter-title">Flores Amarillas para la persona que ilumina mi vida:</div>
         <div class="letter-body">
-          Si pudiera elegir un lugar seguro, sería a tu lado.<br><br>
-          Cuanto más tiempo estoy contigo más te amo.<br><br>
+          Cada día a tu lado es un regalo hermoso y único.<br><br>
+          Gracias por regalarme la historia de amor más bonita del mundo.<br><br>
           ¡Feliz 21 de septiembre y felices 1 año y 4 meses juntos! ❤️
         </div>
-        <div class="letter-sign">— I Love You, Jaqueline! 🌻</div>
+        <div class="letter-sign">— I Love You, Mi niña preciosa! 🌻</div>
       </div>
-
-      <canvas id="treeCanvas"></canvas>
 
       <div id="counter-box">
         <div class="counter-title">Mi amor por ti comenzó hace...</div>
-        <div class="counter-time" id="timer">Cargando tiempo...</div>
+        <div class="counter-time" id="timer">Calculando tiempo...</div>
       </div>
     </div>
   </div>
 
   <script>
     const startScreen = document.getElementById('start-screen');
-    const canvasContainer = document.getElementById('canvas-container');
-    const canvas = document.getElementById('treeCanvas');
+    const canvas = document.getElementById('mainCanvas');
     const ctx = canvas.getContext('2d');
     const letterBox = document.getElementById('letter-box');
     const counterBox = document.getElementById('counter-box');
     const timerElem = document.getElementById('timer');
 
-    // Fecha de inicio: Hace 1 año y 4 meses desde el 21 de Septiembre de 2026 (21 de Mayo de 2025)
+    // Fecha de inicio (21 de mayo de 2025 para cumplir 1 año y 4 meses el 21 de septiembre de 2026)
     const startDate = new Date('2025-05-21T00:00:00');
 
-    function resizeCanvas() {
-      canvas.width = canvasContainer.clientWidth;
-      canvas.height = canvasContainer.clientHeight;
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
+    window.addEventListener('resize', resize);
+    resize();
 
-    // Lógica del contador en tiempo real
+    // Lógica del contador
     function updateTimer() {
       const now = new Date();
       const diff = now - startDate;
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
       timerElem.innerText = `${days} días ${hours < 10 ? '0' : ''}${hours} horas ${minutes < 10 ? '0' : ''}${minutes} minutos ${seconds < 10 ? '0' : ''}${seconds} segundos`;
     }
-
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // INICIO DE LA ANIMACIÓN
+    // DIBUJO DE GIRASOL REALISTA
+    function drawSunflower(ctx, x, y, size, angle = 0) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+
+      // Pétalos
+      const numPetals = 16;
+      for (let i = 0; i < numPetals; i++) {
+        ctx.save();
+        ctx.rotate((i * Math.PI * 2) / numPetals);
+        
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.quadraticCurveTo(size * 0.35, -size * 0.6, 0, -size);
+        ctx.quadraticCurveTo(-size * 0.35, -size * 0.6, 0, 0);
+        ctx.fillStyle = i % 2 === 0 ? '#ffcc00' : '#ffa000';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Centro
+      ctx.beginPath();
+      ctx.arc(0, 0, size * 0.38, 0, Math.PI * 2);
+      ctx.fillStyle = '#4a2c11';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(0, 0, size * 0.28, 0, Math.PI * 2);
+      ctx.fillStyle = '#2d1808';
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    // VARIABLES DE ANIMACIÓN Y ESTADO
+    let state = 'IDLE'; 
+    let treeOffset = 0; // Desplazamiento a la derecha
+    let targetOffset = 0;
+
+    // Elementos de animación
+    let startFlower = { scale: 1, y: 0 };
+    let seed = { x: 0, y: 0, rotation: 0, opacity: 1 };
+    let treeProgress = 0;
+    let bloomProgress = 0;
+    let flowersList = [];
+    let windPetals = [];
+
+    // Pre-generar copa en corazón de flores
+    function generateHeartFlowers(cx, cy) {
+      const list = [];
+      const count = 320;
+      for (let i = 0; i < count; i++) {
+        const t = Math.random() * Math.PI * 2;
+        const r = 7.5; 
+        // Ecuación paramétrica de corazón
+        const hx = r * (16 * Math.pow(Math.sin(t), 3));
+        const hy = -r * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+        list.push({
+          relX: hx + (Math.random() - 0.5) * 16,
+          relY: hy + (Math.random() - 0.5) * 16,
+          size: 7 + Math.random() * 6,
+          currentSize: 0,
+          rotation: Math.random() * Math.PI * 2,
+          delay: Math.random() * 0.5
+        });
+      }
+      return list;
+    }
+
+    // CONTROLADOR DE LA SECUENCIA
     startScreen.addEventListener('click', () => {
       startScreen.style.opacity = '0';
       setTimeout(() => {
         startScreen.style.display = 'none';
-        canvasContainer.style.display = 'flex';
-        resizeCanvas();
-        runSequence();
+        startSequence();
       }, 800);
     });
 
-    function runSequence() {
-      const centerX = canvas.width * 0.68; // Desplazado a la derecha para dejar espacio a la carta
-      const startY = canvas.height - 60;
-
-      // Fase 1: Semilla que cae e interactúa
-      drawSeed(centerX, startY, () => {
-        // Fase 2: Crecimiento del Tronco y Ramas
-        growTree(centerX, startY, () => {
-          // Fase 3: Florecimiento del Corazón de Flores Amarillas
-          bloomHeart(centerX, startY - 140, () => {
-            // Mostrar texto y contador
-            letterBox.style.opacity = '1';
-            counterBox.style.opacity = '1';
-          });
-        });
-      });
+    function startSequence() {
+      state = 'FLOWER_TO_SEED';
+      startFlower.y = canvas.height / 2 - 30;
     }
 
-    // FASE 1: DIBUJAR Y NUTRIR SEMILLA
-    function drawSeed(x, y, callback) {
-      let seedY = y - 180;
-      let opacity = 0;
+    // BUCLE PRINCIPAL DE RENDERIZADO
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      function animateSeed() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Línea de suelo
-        ctx.beginPath();
-        ctx.moveTo(0, y + 5);
-        ctx.lineTo(canvas.width, y + 5);
-        ctx.strokeStyle = '#d7ccc8';
-        ctx.lineWidth = 2;
-        ctx.stroke();
+      const centerX = canvas.width / 2;
+      const groundY = canvas.height - 70;
 
-        // Caída de la semilla
-        if (seedY < y) {
-          seedY += 4;
-          if (opacity < 1) opacity += 0.03;
-        }
+      // Dibujar suelo suave
+      ctx.beginPath();
+      ctx.moveTo(0, groundY);
+      ctx.lineTo(canvas.width, groundY);
+      ctx.strokeStyle = '#d0c3b5';
+      ctx.lineWidth = 2;
+      ctx.stroke();
 
-        ctx.beginPath();
-        ctx.arc(x, seedY, 5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(139, 90, 43, ${opacity})`;
-        ctx.fill();
-
-        if (seedY < y) {
-          requestAnimationFrame(animateSeed);
+      // 1. FLOR INICIAL SE CONVIERTE EN SEMILLA
+      if (state === 'FLOWER_TO_SEED') {
+        startFlower.scale -= 0.02;
+        if (startFlower.scale > 0) {
+          drawSunflower(ctx, centerX, startFlower.y, 45 * startFlower.scale);
         } else {
-          setTimeout(callback, 500);
+          state = 'SEED_FALLING';
+          seed.x = centerX;
+          seed.y = startFlower.y;
         }
       }
-      animateSeed();
-    }
 
-    // FASE 2: CRECIMIENTO DEL TRONCO
-    function growTree(startX, startY, callback) {
-      let progress = 0;
+      // 2. CAÍDA ELEGANTE DE LA SEMILLA
+      else if (state === 'SEED_FALLING') {
+        seed.y += 2.8;
+        seed.x = centerX + Math.sin(seed.y * 0.05) * 20; // Bamboleo
+        seed.rotation += 0.05;
 
-      function animateTrunk() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Línea de suelo
+        ctx.save();
+        ctx.translate(seed.x, seed.y);
+        ctx.rotate(seed.rotation);
         ctx.beginPath();
-        ctx.moveTo(0, startY + 5);
-        ctx.lineTo(canvas.width, startY + 5);
-        ctx.strokeStyle = '#d7ccc8';
-        ctx.lineWidth = 2;
-        ctx.stroke();
+        ctx.ellipse(0, 0, 7, 4, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#6b4423';
+        ctx.fill();
+        ctx.restore();
 
-        progress += 0.015;
+        if (seed.y >= groundY - 5) {
+          state = 'TREE_GROWING';
+          flowersList = generateHeartFlowers(0, -180);
+        }
+      }
 
-        // Tronco principal
+      // 3. CRECIMIENTO DEL ÁRBOL
+      else if (state === 'TREE_GROWING' || state === 'BLOOMING' || state === 'SHIFTING' || state === 'FINAL') {
+        if (state === 'TREE_GROWING') {
+          treeProgress += 0.012;
+          if (treeProgress >= 1) {
+            treeProgress = 1;
+            state = 'BLOOMING';
+          }
+        }
+
+        if (state === 'BLOOMING') {
+          bloomProgress += 0.01;
+          if (bloomProgress >= 1) {
+            bloomProgress = 1;
+            state = 'SHIFTING';
+            targetOffset = canvas.width > 600 ? canvas.width * 0.22 : canvas.width * 0.20; // Movimiento a la derecha
+          }
+        }
+
+        if (state === 'SHIFTING') {
+          treeOffset += (targetOffset - treeOffset) * 0.03;
+          if (Math.abs(targetOffset - treeOffset) < 1) {
+            treeOffset = targetOffset;
+            state = 'FINAL';
+            
+            // Mostrar texto y contador al mismo tiempo
+            letterBox.classList.add('visible');
+            counterBox.classList.add('visible');
+          }
+        }
+
+        if (state === 'FINAL') {
+          // Generar flores que se lleva el viento suavemente a la izquierda
+          if (Math.random() < 0.3) {
+            windPetals.push({
+              x: (centerX + treeOffset) + (Math.random() - 0.5) * 80,
+              y: (groundY - 180) + (Math.random() - 0.5) * 80,
+              vx: -(1.5 + Math.random() * 1.5),
+              vy: (Math.random() - 0.5) * 0.8,
+              size: 4 + Math.random() * 4,
+              rotation: Math.random() * Math.PI * 2,
+              vRot: (Math.random() - 0.5) * 0.05
+            });
+          }
+        }
+
+        // DIBUJAR ÁRBOL (Tronco y Ramas)
+        ctx.save();
+        ctx.translate(centerX + treeOffset, groundY);
+
         ctx.beginPath();
-        ctx.moveTo(startX, startY);
-        const currentHeight = 140 * Math.min(progress, 1);
-        ctx.lineTo(startX, startY - currentHeight);
-        ctx.strokeStyle = '#795548';
-        ctx.lineWidth = 14 * (1 - progress * 0.3);
+        ctx.moveTo(0, 0);
+        const trunkH = 150 * treeProgress;
+        ctx.lineTo(0, -trunkH);
+        ctx.strokeStyle = '#6d4c41';
+        ctx.lineWidth = 14 * (1 - treeProgress * 0.35);
         ctx.lineCap = 'round';
         ctx.stroke();
 
-        // Ramas secundarias cuando el tronco casi termina
-        if (progress > 0.6) {
-          const branchProg = (progress - 0.6) / 0.4;
-
-          // Rama Izquierda
-          ctx.beginPath();
-          ctx.moveTo(startX, startY - 80);
-          ctx.quadraticCurveTo(startX - 30, startY - 110, startX - 45 * branchProg, startY - 130 * branchProg);
-          ctx.lineWidth = 6;
-          ctx.stroke();
-
-          // Rama Derecha
-          ctx.beginPath();
-          ctx.moveTo(startX, startY - 95);
-          ctx.quadraticCurveTo(startX + 25, startY - 125, startX + 45 * branchProg, startY - 145 * branchProg);
+        // Ramas orgánicas
+        if (treeProgress > 0.5) {
+          const bProg = (treeProgress - 0.5) / 0.5;
           ctx.lineWidth = 5;
+
+          // Izquierda
+          ctx.beginPath();
+          ctx.moveTo(0, -70 * bProg);
+          ctx.quadraticCurveTo(-25, -110, -50 * bProg, -130 * bProg);
+          ctx.stroke();
+
+          // Derecha
+          ctx.beginPath();
+          ctx.moveTo(0, -90 * bProg);
+          ctx.quadraticCurveTo(25, -125, 45 * bProg, -145 * bProg);
           ctx.stroke();
         }
 
-        if (progress < 1) {
-          requestAnimationFrame(animateTrunk);
-        } else {
-          setTimeout(callback, 300);
+        // DIBUJAR FLORES DE LA COPA (Corazón)
+        if (bloomProgress > 0) {
+          flowersList.forEach(f => {
+            if (bloomProgress > f.delay) {
+              const localProg = Math.min((bloomProgress - f.delay) / 0.4, 1);
+              f.currentSize = f.size * localProg;
+              drawSunflower(ctx, f.relX, f.relY - 100, f.currentSize, f.rotation);
+            }
+          });
         }
-      }
-      animateTrunk();
-    }
 
-    // FASE 3: FLORACIÓN EN FORMA DE CORAZÓN
-    function bloomHeart(centerX, centerY, callback) {
-      const flowers = [];
-      const totalFlowers = 220;
+        ctx.restore();
 
-      // Generar posiciones dentro de la ecuación del corazón
-      for (let i = 0; i < totalFlowers; i++) {
-        const t = Math.random() * Math.PI * 2;
-        // Escala del corazón
-        const r = 6.5; 
-        const x = r * (16 * Math.pow(Math.sin(t), 3));
-        const y = -r * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+        // DIBUJAR FLORES FLOTANDO CON EL VIENTO
+        for (let i = windPetals.length - 1; i >= 0; i--) {
+          const p = windPetals[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rotation += p.vRot;
 
-        // Un poco de dispersión orgánica
-        const offsetX = (Math.random() - 0.5) * 15;
-        const offsetY = (Math.random() - 0.5) * 15;
+          drawSunflower(ctx, p.x, p.y, p.size, p.rotation);
 
-        flowers.push({
-          x: centerX + x + offsetX,
-          y: centerY + y + offsetY,
-          size: 0,
-          maxSize: 6 + Math.random() * 5,
-          color: Math.random() > 0.15 ? '#ffd700' : '#ffae00', // Tonalidades amarillas
-          centerColor: '#8b5a2b'
-        });
-      }
-
-      let currentFlowerIndex = 0;
-
-      function animateFlowers() {
-        // Revelar flores progresivamente
-        const batch = 4;
-        for (let i = 0; i < batch; i++) {
-          if (currentFlowerIndex < flowers.length) {
-            currentFlowerIndex++;
+          // Eliminar si salen de la pantalla
+          if (p.x < -20 || p.y > canvas.height + 20) {
+            windPetals.splice(i, 1);
           }
         }
-
-        for (let i = 0; i < currentFlowerIndex; i++) {
-          const f = flowers[i];
-          if (f.size < f.maxSize) {
-            f.size += 0.4;
-          }
-
-          // Dibujar flor amarilla
-          ctx.beginPath();
-          ctx.arc(f.x, f.y, f.size, 0, Math.PI * 2);
-          ctx.fillStyle = f.color;
-          ctx.fill();
-
-          // Centro de la flor
-          ctx.beginPath();
-          ctx.arc(f.x, f.y, f.size * 0.35, 0, Math.PI * 2);
-          ctx.fillStyle = f.centerColor;
-          ctx.fill();
-        }
-
-        if (currentFlowerIndex < flowers.length || flowers[flowers.length - 1].size < flowers[flowers.length - 1].maxSize) {
-          requestAnimationFrame(animateFlowers);
-        } else {
-          setTimeout(callback, 400);
-        }
       }
 
-      animateFlowers();
+      requestAnimationFrame(animate);
     }
+
+    animate();
   </script>
 </body>
 </html>
