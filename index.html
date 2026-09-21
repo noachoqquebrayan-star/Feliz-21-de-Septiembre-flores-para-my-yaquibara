@@ -1,222 +1,405 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flores Amarillas para Jaqueline</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flores Amarillas para Jaqueline 🌻❤️</title>
+  
+  <!-- Vista previa para WhatsApp -->
+  <meta property="og:title" content="Flores Amarillas para el amor de mi vida 🌻❤️" />
+  <meta property="og:description" content="Jaqueline, abre este enlace para ver tu regalo especial ✨" />
+  <meta property="og:type" content="website" />
 
-        body {
-            background-color: #2b0318; /* Fondo oscuro romántico de pantalla */
-            background-image: radial-gradient(#4d0a2d 1px, transparent 1px);
-            background-size: 20px 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .card {
-            background-color: #fcf6eb;
-            width: 100%;
-            max-width: 380px;
-            border-radius: 25px;
-            padding: 30px 25px 20px 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
+    body {
+      background-color: #fdf6ec;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      color: #4a3b32;
+    }
 
-        .content-layout {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 25px;
-            position: relative;
-        }
+    .container {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      background-color: #fffaf0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 20px;
+    }
 
-        .text-section {
-            width: 55%;
-            text-align: left;
-            z-index: 2;
-        }
+    /* PANTALLA INICIAL */
+    #start-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      cursor: pointer;
+      z-index: 10;
+      transition: opacity 0.8s ease;
+    }
 
-        .text-section h2 {
-            font-size: 0.9rem;
-            color: #4a3b32;
-            font-weight: 600;
-            margin-bottom: 15px;
-            line-height: 1.3;
-        }
+    .flower-icon {
+      font-size: 4rem;
+      animation: pulse 1.8s infinite ease-in-out;
+    }
 
-        .text-section p {
-            font-size: 0.8rem;
-            color: #5c4a3e;
-            line-height: 1.4;
-            margin-bottom: 12px;
-        }
+    .start-btn {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #8b5a2b;
+      border-bottom: 2px dashed #e6a100;
+      padding-bottom: 5px;
+    }
 
-        .signature {
-            font-size: 0.85rem;
-            color: #7a5c48;
-            font-style: italic;
-            margin-top: 15px;
-        }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
 
-        /* --- ÁRBOL DE CORAZÓN --- */
-        .tree-container {
-            width: 45%;
-            height: 180px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-        }
+    /* ESCENARIO DE ANIMACIÓN */
+    #canvas-container {
+      width: 100%;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
 
-        .trunk {
-            width: 14px;
-            height: 90px;
-            background: #5c3a21;
-            border-radius: 4px;
-            position: relative;
-            z-index: 1;
-        }
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
 
-        .heart-crown {
-            position: absolute;
-            top: 5px;
-            width: 140px;
-            height: 130px;
-            z-index: 2;
-        }
+    /* MENSAJE Y CONTADOR */
+    #letter-box {
+      position: absolute;
+      top: 40px;
+      left: 20px;
+      max-width: 260px;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      z-index: 5;
+      pointer-events: none;
+    }
 
-        /* Contenedor dinámico de flores */
-        .flower-leaf {
-            position: absolute;
-            font-size: 11px;
-            user-select: none;
-            animation: pulse 3s infinite ease-in-out;
-        }
+    .letter-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #6b4423;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
 
-        /* --- SECCIÓN DEL CONTADOR --- */
-        .counter-section {
-            border-top: 1px solid #e0d5c1;
-            padding-top: 12px;
-            text-align: left;
-        }
+    .letter-body {
+      font-size: 0.9rem;
+      color: #554035;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
 
-        .counter-title {
-            font-size: 0.8rem;
-            color: #4a3b32;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+    .letter-sign {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #8b5a2b;
+    }
 
-        .counter-display {
-            font-size: 0.85rem;
-            color: #2c1e16;
-            font-weight: bold;
-        }
+    #counter-box {
+      position: absolute;
+      bottom: 25px;
+      width: 90%;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      z-index: 5;
+      background: rgba(255, 250, 240, 0.85);
+      padding: 10px 15px;
+      border-radius: 15px;
+      backdrop-filter: blur(4px);
+    }
 
-        .counter-display span {
-            font-size: 0.9rem;
-        }
+    .counter-title {
+      font-size: 0.85rem;
+      color: #7a5c43;
+      margin-bottom: 4px;
+    }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-    </style>
+    .counter-time {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #b37d00;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="card">
-        <div class="content-layout">
-            <!-- Texto a la izquierda -->
-            <div class="text-section">
-                <h2>Flores Amarillas para el amor de mi vida:</h2>
-                <p>Si pudiera elegir un lugar seguro, sería a tu lado.</p>
-                <p>Cuanto más tiempo estoy contigo más te amo.</p>
-                <div class="signature">— I Love You!</div>
-            </div>
-
-            <!-- Árbol a la derecha -->
-            <div class="tree-container">
-                <div class="heart-crown" id="heartCrown"></div>
-                <div class="trunk"></div>
-            </div>
-        </div>
-
-        <!-- Contador inferior en vivo -->
-        <div class="counter-section">
-            <div class="counter-title">
-                🌻 Mi amor por ti comenzó hace...
-            </div>
-            <div class="counter-display" id="timer">
-                487 días 00 horas 00 minutos 00 segundos
-            </div>
-        </div>
+  <div class="container">
+    <!-- Pantalla de inicio -->
+    <div id="start-screen">
+      <div class="flower-icon">🌻</div>
+      <div class="start-btn">Flores Para Ti</div>
     </div>
 
-    <script>
-        // Generar la copa de árbol con forma de corazón llena de flores amarillas
-        const heartCrown = document.getElementById('heartCrown');
-        const totalFlowers = 90;
+    <!-- Escenario principal -->
+    <div id="canvas-container">
+      <div id="letter-box">
+        <div class="letter-title">Flores Amarillas para el amor de mi vida:</div>
+        <div class="letter-body">
+          Si pudiera elegir un lugar seguro, sería a tu lado.<br><br>
+          Cuanto más tiempo estoy contigo más te amo.<br><br>
+          ¡Feliz 21 de septiembre y felices 1 año y 4 meses juntos! ❤️
+        </div>
+        <div class="letter-sign">— I Love You, Jaqueline! 🌻</div>
+      </div>
 
-        for (let i = 0; i < totalFlowers; i++) {
-            // Ecuación paramétrica de un corazón
-            const t = Math.random() * Math.PI * 2;
-            const r = Math.sqrt(Math.random()); // Distribución uniforme dentro de la forma
-            
-            // Puntos en forma de corazón
-            const x = r * 16 * Math.pow(Math.sin(t), 3);
-            const y = -r * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+      <canvas id="treeCanvas"></canvas>
 
-            const flower = document.createElement('span');
-            flower.classList.add('flower-leaf');
-            flower.innerHTML = '🌻';
+      <div id="counter-box">
+        <div class="counter-title">Mi amor por ti comenzó hace...</div>
+        <div class="counter-time" id="timer">Cargando tiempo...</div>
+      </div>
+    </div>
+  </div>
 
-            // Escalar y posicionar dentro del contenedor
-            const posX = 65 + (x * 3.5);
-            const posY = 55 + (y * 3.5);
+  <script>
+    const startScreen = document.getElementById('start-screen');
+    const canvasContainer = document.getElementById('canvas-container');
+    const canvas = document.getElementById('treeCanvas');
+    const ctx = canvas.getContext('2d');
+    const letterBox = document.getElementById('letter-box');
+    const counterBox = document.getElementById('counter-box');
+    const timerElem = document.getElementById('timer');
 
-            flower.style.left = `${posX}px`;
-            flower.style.top = `${posY}px`;
-            flower.style.animationDelay = `${Math.random() * 2}s`;
-            flower.style.fontSize = `${8 + Math.random() * 6}px`;
+    // Fecha de inicio: Hace 1 año y 4 meses desde el 21 de Septiembre de 2026 (21 de Mayo de 2025)
+    const startDate = new Date('2025-05-21T00:00:00');
 
-            heartCrown.appendChild(flower);
+    function resizeCanvas() {
+      canvas.width = canvasContainer.clientWidth;
+      canvas.height = canvasContainer.clientHeight;
+    }
+
+    // Lógica del contador en tiempo real
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      timerElem.innerText = `${days} días ${hours < 10 ? '0' : ''}${hours} horas ${minutes < 10 ? '0' : ''}${minutes} minutos ${seconds < 10 ? '0' : ''}${seconds} segundos`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // INICIO DE LA ANIMACIÓN
+    startScreen.addEventListener('click', () => {
+      startScreen.style.opacity = '0';
+      setTimeout(() => {
+        startScreen.style.display = 'none';
+        canvasContainer.style.display = 'flex';
+        resizeCanvas();
+        runSequence();
+      }, 800);
+    });
+
+    function runSequence() {
+      const centerX = canvas.width * 0.68; // Desplazado a la derecha para dejar espacio a la carta
+      const startY = canvas.height - 60;
+
+      // Fase 1: Semilla que cae e interactúa
+      drawSeed(centerX, startY, () => {
+        // Fase 2: Crecimiento del Tronco y Ramas
+        growTree(centerX, startY, () => {
+          // Fase 3: Florecimiento del Corazón de Flores Amarillas
+          bloomHeart(centerX, startY - 140, () => {
+            // Mostrar texto y contador
+            letterBox.style.opacity = '1';
+            counterBox.style.opacity = '1';
+          });
+        });
+      });
+    }
+
+    // FASE 1: DIBUJAR Y NUTRIR SEMILLA
+    function drawSeed(x, y, callback) {
+      let seedY = y - 180;
+      let opacity = 0;
+
+      function animateSeed() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Línea de suelo
+        ctx.beginPath();
+        ctx.moveTo(0, y + 5);
+        ctx.lineTo(canvas.width, y + 5);
+        ctx.strokeStyle = '#d7ccc8';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Caída de la semilla
+        if (seedY < y) {
+          seedY += 4;
+          if (opacity < 1) opacity += 0.03;
         }
 
-        // Lógica del contador de tiempo transcurrido (1 año y 4 meses = 487 días exactos)
-        // Fecha base configurada para reflejar el tiempo juntos
-        const startDate = new Date();
-        startDate.setDate(startDate.getDate() - 487); 
+        ctx.beginPath();
+        ctx.arc(x, seedY, 5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(139, 90, 43, ${opacity})`;
+        ctx.fill();
 
-        function updateTimer() {
-            const now = new Date();
-            const diff = now - startDate;
+        if (seedY < y) {
+          requestAnimationFrame(animateSeed);
+        } else {
+          setTimeout(callback, 500);
+        }
+      }
+      animateSeed();
+    }
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / 1000 / 60) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
+    // FASE 2: CRECIMIENTO DEL TRONCO
+    function growTree(startX, startY, callback) {
+      let progress = 0;
 
-            document.getElementById('timer').innerHTML = 
-                `${days} días ${hours < 10 ? '0' : ''}${hours} horas ${minutes < 10 ? '0' : ''}${minutes} minutos ${seconds < 10 ? '0' : ''}${seconds} segundos`;
+      function animateTrunk() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Línea de suelo
+        ctx.beginPath();
+        ctx.moveTo(0, startY + 5);
+        ctx.lineTo(canvas.width, startY + 5);
+        ctx.strokeStyle = '#d7ccc8';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        progress += 0.015;
+
+        // Tronco principal
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        const currentHeight = 140 * Math.min(progress, 1);
+        ctx.lineTo(startX, startY - currentHeight);
+        ctx.strokeStyle = '#795548';
+        ctx.lineWidth = 14 * (1 - progress * 0.3);
+        ctx.lineCap = 'round';
+        ctx.stroke();
+
+        // Ramas secundarias cuando el tronco casi termina
+        if (progress > 0.6) {
+          const branchProg = (progress - 0.6) / 0.4;
+
+          // Rama Izquierda
+          ctx.beginPath();
+          ctx.moveTo(startX, startY - 80);
+          ctx.quadraticCurveTo(startX - 30, startY - 110, startX - 45 * branchProg, startY - 130 * branchProg);
+          ctx.lineWidth = 6;
+          ctx.stroke();
+
+          // Rama Derecha
+          ctx.beginPath();
+          ctx.moveTo(startX, startY - 95);
+          ctx.quadraticCurveTo(startX + 25, startY - 125, startX + 45 * branchProg, startY - 145 * branchProg);
+          ctx.lineWidth = 5;
+          ctx.stroke();
         }
 
-        setInterval(updateTimer, 1000);
-        updateTimer();
-    </script>
+        if (progress < 1) {
+          requestAnimationFrame(animateTrunk);
+        } else {
+          setTimeout(callback, 300);
+        }
+      }
+      animateTrunk();
+    }
+
+    // FASE 3: FLORACIÓN EN FORMA DE CORAZÓN
+    function bloomHeart(centerX, centerY, callback) {
+      const flowers = [];
+      const totalFlowers = 220;
+
+      // Generar posiciones dentro de la ecuación del corazón
+      for (let i = 0; i < totalFlowers; i++) {
+        const t = Math.random() * Math.PI * 2;
+        // Escala del corazón
+        const r = 6.5; 
+        const x = r * (16 * Math.pow(Math.sin(t), 3));
+        const y = -r * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+        // Un poco de dispersión orgánica
+        const offsetX = (Math.random() - 0.5) * 15;
+        const offsetY = (Math.random() - 0.5) * 15;
+
+        flowers.push({
+          x: centerX + x + offsetX,
+          y: centerY + y + offsetY,
+          size: 0,
+          maxSize: 6 + Math.random() * 5,
+          color: Math.random() > 0.15 ? '#ffd700' : '#ffae00', // Tonalidades amarillas
+          centerColor: '#8b5a2b'
+        });
+      }
+
+      let currentFlowerIndex = 0;
+
+      function animateFlowers() {
+        // Revelar flores progresivamente
+        const batch = 4;
+        for (let i = 0; i < batch; i++) {
+          if (currentFlowerIndex < flowers.length) {
+            currentFlowerIndex++;
+          }
+        }
+
+        for (let i = 0; i < currentFlowerIndex; i++) {
+          const f = flowers[i];
+          if (f.size < f.maxSize) {
+            f.size += 0.4;
+          }
+
+          // Dibujar flor amarilla
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.size, 0, Math.PI * 2);
+          ctx.fillStyle = f.color;
+          ctx.fill();
+
+          // Centro de la flor
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.size * 0.35, 0, Math.PI * 2);
+          ctx.fillStyle = f.centerColor;
+          ctx.fill();
+        }
+
+        if (currentFlowerIndex < flowers.length || flowers[flowers.length - 1].size < flowers[flowers.length - 1].maxSize) {
+          requestAnimationFrame(animateFlowers);
+        } else {
+          setTimeout(callback, 400);
+        }
+      }
+
+      animateFlowers();
+    }
+  </script>
 </body>
 </html>
